@@ -1,13 +1,32 @@
 package Model;
 
+import jakarta.persistence.*;
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "first_name")
     private String name;
+
+    @Column(name = "last_name")
     private String lastname;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-    private String manager;
+
+    @Column(name = "manager")
+    private boolean manager;
+
 
     public int getId() {
         return id;
@@ -57,15 +76,15 @@ public class User {
         this.email = email;
     }
 
-    public String getManager() {
+    public boolean getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(boolean manager) {
         this.manager = manager;
     }
 
-    public User(int id, String username, String password, String name, String lastname, String email, String manager) {
+    public User(int id, String username, String password, String name, String lastname, String email, boolean manager) {
         this.id = id;
         this.username = username;
         this.password = password;

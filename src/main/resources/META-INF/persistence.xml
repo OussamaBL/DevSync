@@ -4,13 +4,12 @@
              version="3.0">
     <persistence-unit name="default">
 
-       <!-- <class>org.youcode.DevSync.modals.User</class>
-        <class>org.youcode.DevSync.modals.Role</class>-->
+        <class>Model.User</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Devsync"/>
+            <property name="jakarta.persistence.jdbc.user" value="Devsync"/>
             <property name="jakarta.persistence.jdbc.password" value="password"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

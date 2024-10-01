@@ -6,14 +6,6 @@
          version="3.1">
 
 
-    <!-- JSP Mapping Example (optional) -->
-    <!--<jsp-config>
-        <taglib>
-            <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-            <taglib-location>/WEB-INF/lib/jstl.jar</taglib-location>
-        </taglib>
-    </jsp-config>-->
-
     <!-- Welcome Page (optional) -->
     <welcome-file-list>
         <welcome-file>Index_jee</welcome-file>
