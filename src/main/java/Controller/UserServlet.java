@@ -65,11 +65,12 @@ public class UserServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            User user = new User(0L,userName,password,name,lastName, email,true);
+            User user = new User(userName,password,name,lastName, email,true);
             if (id != null && !id.isEmpty()) {
                 user.setId(Long.parseLong(id));
                 userService.updateUser(user);
             } else {
+                System.out.println(user);
                 userService.insertUser(user);
             }
         }
