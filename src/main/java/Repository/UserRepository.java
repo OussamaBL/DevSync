@@ -42,8 +42,6 @@ public class UserRepository implements UserInterface {
         }
     }
 
-    
-
     @Override
     public void updateUser(User user) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -76,10 +74,5 @@ public class UserRepository implements UserInterface {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
+    
 }
