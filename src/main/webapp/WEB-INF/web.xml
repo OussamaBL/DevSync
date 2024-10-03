@@ -8,7 +8,7 @@
 
     <!-- Welcome Page (optional) -->
     <welcome-file-list>
-        <welcome-file>Index_jee</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 
     <!-- Session Timeout (optional) -->
