@@ -27,8 +27,8 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>LastName</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>UserName</th>
             <th>Email</th>
             <th>Password</th>
@@ -44,12 +44,12 @@
         %>
         <tr>
             <td><%= user.getId() %></td>
-            <td><%= user.getName() %></td>
-            <td><%= user.getLastname() %></td>
+            <td><%= user.getFirst_name() %></td>
+            <td><%= user.getLast_name() %></td>
             <td><%= user.getUsername() %></td>
             <td><%= user.getEmail() %></td>
             <td><%= user.getPassword() %></td>
-            <td><%= user.getManager() %></td>
+            <td><%= user.getRole_user() %></td>
             <td>
                 <a href="users?action=edit&id=<%= user.getId() %>" class="btn btn-warning btn-sm">Edit</a>
                 <form action="users" method="post" style="display:inline;">

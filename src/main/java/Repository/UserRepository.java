@@ -74,5 +74,5 @@ public class UserRepository implements UserInterface {
             e.printStackTrace();
         }
     }
-    
+
 }

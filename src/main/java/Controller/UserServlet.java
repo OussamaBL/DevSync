@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Enums.UserType;
 import Model.User;
 import Service.UserService;
 
@@ -31,6 +32,7 @@ public class UserServlet extends HttpServlet {
             throw new ServletException("Failed to initialize UserServlet", e);
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,18 +61,18 @@ public class UserServlet extends HttpServlet {
                 userService.deleteUser(Long.parseLong(id));
             }
         } else {
-            String userName = request.getParameter("userName");
-            String name = request.getParameter("name");
-            String lastName = request.getParameter("lastName");
+            String username = request.getParameter("username");
+            String first_name = request.getParameter("first_name");
+            String last_name = request.getParameter("last_name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            int tokens = Integer.parseInt(request.getParameter("tokens"));
 
-            User user = new User(userName,password,name,lastName, email,true);
+            User user = new User(username,password,first_name,last_name, email,tokens, UserType.MANAGER);
             if (id != null && !id.isEmpty()) {
                 user.setId(Long.parseLong(id));
                 userService.updateUser(user);
             } else {
-                System.out.println(user);
                 userService.insertUser(user);
             }
         }

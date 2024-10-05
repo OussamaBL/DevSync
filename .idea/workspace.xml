@@ -10,8 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cc29f3e-0a99-4def-84d0-4ed8717f03dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Enums/TaskStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Enums/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Tag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1/storage_v2/_src_/database/Devsync.ECQ2wA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1/storage_v2/_src_/database/Devsync.ECQ2wA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/FormUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/FormUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ListUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ListUser.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +33,7 @@
       <list>
         <option value="Jsp File" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -43,32 +54,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Java/devSync2&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Java/devSync2/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Release-v-1.0.0",
+    "last_opened_file_path": "C:/Java/devSync2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Java/devSync2/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Java\devSync2\src\main" />
@@ -118,7 +129,7 @@
       <workItem from="1727775779071" duration="6596000" />
       <workItem from="1727785973051" duration="11562000" />
       <workItem from="1727857529409" duration="11420000" />
-      <workItem from="1727944670673" duration="4264000" />
+      <workItem from="1727944670673" duration="32854000" />
     </task>
     <servers />
   </component>

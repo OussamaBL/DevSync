@@ -20,11 +20,11 @@
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" value="<%= user != null ? user.getName() : "" %>" required/>
+            <input type="text" class="form-control" id="name" name="name" value="<%= user != null ? user.getFirst_name() : "" %>" required/>
         </div>
         <div class="form-group">
             <label for="lastName">lastName:</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= user != null ? user.getLastname() : "" %>" required/>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= user != null ? user.getLast_name() : "" %>" required/>
         </div>
 
         <div class="form-group">

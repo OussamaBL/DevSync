@@ -1,6 +1,12 @@
 package Model;
 
+import Model.Enums.UserType;
 import jakarta.persistence.*;
+import lombok.extern.slf4j.XSlf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -15,18 +21,43 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name")
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String first_name;
 
-    @Column(name = "last_name")
-    private String lastname;
+    @Column(name = "last_name", nullable = false)
+    private String last_name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name="email",unique = true,nullable = false)
     private String email;
 
-    @Column(name = "manager")
-    private boolean manager;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_user", nullable = false)
+    private UserType role_user;
 
+    @Column(name = "tokens")
+    private int tokens;
+
+    @OneToMany(mappedBy = "user_create")
+    private List<Task> createdTasks;
+
+    @OneToMany(mappedBy = "user_assigne")
+    private List<Task> assignedTasks;
+
+    public List<Task> getCreatedTasks() {
+        return createdTasks;
+    }
+
+    public void setCreatedTasks(List<Task> createdTasks) {
+        this.createdTasks = createdTasks;
+    }
+
+    public List<Task> getAssignedTasks() {
+        return assignedTasks;
+    }
+
+    public void setAssignedTasks(List<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
+    }
 
     public Long getId() {
         return id;
@@ -52,21 +83,6 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public String getEmail() {
         return email;
@@ -76,34 +92,33 @@ public class User {
         this.email = email;
     }
 
-    public boolean getManager() {
-        return manager;
-    }
-
-    public void setManager(boolean manager) {
-        this.manager = manager;
-    }
-
-    public User(Long id, String username, String password, String name, String lastname, String email, boolean manager) {
+    public User(Long id, String username, String password, String first_name, String last_name, String email,int tokens,UserType user_role) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.name = name;
-        this.lastname = lastname;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
-        this.manager = manager;
+        this.role_user = user_role;
+        this.tokens = tokens;
+        createdTasks=new ArrayList<>();
+        assignedTasks=new ArrayList<>();
     }
-    public User(String username, String password, String name, String lastname, String email, boolean manager) {
+    public User(String username, String password, String first_name, String last_name, String email,int tokens, UserType user_role) {
         this.username = username;
         this.password = password;
-        this.name = name;
-        this.lastname = lastname;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
-        this.manager = manager;
+        this.role_user = user_role;
+        this.tokens = tokens;
+        createdTasks=new ArrayList<>();
+        assignedTasks=new ArrayList<>();
     }
 
     public User(){
-
+        createdTasks=new ArrayList<>();
+        assignedTasks=new ArrayList<>();
     }
 
     @Override
@@ -112,10 +127,45 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", manager='" + manager + '\'' +
+                ", role_user=" + role_user.name() +
+                ", tokens=" + tokens +
+                ", createdTasks=" + createdTasks +
+                ", assignedTasks=" + assignedTasks +
                 '}';
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public UserType getRole_user() {
+        return role_user;
+    }
+
+    public void setRole_user(UserType role_user) {
+        this.role_user = role_user;
+    }
+
+    public int getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(int tokens) {
+        this.tokens = tokens;
     }
 }
