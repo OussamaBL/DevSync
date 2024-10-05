@@ -20,7 +20,6 @@ public class Tag {
     public Tag() {
 
     }
-
     public int getId() {
         return id;
     }
