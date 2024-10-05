@@ -1,0 +1,3 @@
+DevSync a émergé d'un effort collaboratif visant à résoudre les lacunes des outils existants de gestion des tâches.
+
+Animée par un engagement envers l'innovation, l'équipe de développement a choisi JAKARTA EE pour créer une plateforme robuste. Les fonctionnalités de DevSync, telles que la recherche avancée avec des tags, les contraintes de planification et les mises à jour automatisées de l'état, ont été méticuleusement conçues en fonction des retours des utilisateurs. Le projet imagine DevSync comme un catalyseur pour une collaboration améliorée et le succès des projets, visant à simplifier les complexités de la gestion des tâches pour les individus, les chefs d'équipe et les gestionnaires dans des environnements de travail dynamiques.
