@@ -1,12 +1,18 @@
 <%@ page import="Model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <title>User List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
+
+<jsp:include page="Layouts/Nav.jsp" />
 <div class="container">
     <h2>User List</h2>
 
@@ -70,4 +76,5 @@
     <a href="home" class="btn btn-info">Back to Home</a>
 </div>
 </body>
+
 </html>

@@ -4,6 +4,7 @@ import Repository.Interfaces.UserInterface;
 import Model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -72,6 +73,15 @@ public class UserRepository implements UserInterface {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    public User findByEmail(String email) {
+        try {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 

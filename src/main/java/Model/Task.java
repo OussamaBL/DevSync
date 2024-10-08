@@ -26,21 +26,21 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(name = "status",nullable = false)
     private TaskStatus status;
-    @ManyToOne
-    @JoinColumn(name = "user_create_id",nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_create_id", nullable = false)
     private User user_create;
 
-    @ManyToOne
-    @JoinColumn(name = "user_assigne_id",nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_assigne_id", nullable = false)
     private User user_assigne;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "task_tags",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> listTags;
+    private List<Tag> listTags ;
 
     public Task() {
 
@@ -135,6 +135,14 @@ public class Task {
         this.id=id;
         this.listTags = new ArrayList<>();
     }
+    public Task(String title,String description,LocalDate date_create, LocalDate date_fin, TaskStatus status){
+        this.title=title;
+        this.description=description;
+        this.date_create=date_create;
+        this.date_fin=date_fin;
+        this.status=status;
+        this.listTags=new ArrayList<>();
+    }
 
     @Override
     public String toString() {
@@ -150,4 +158,13 @@ public class Task {
                 ", listTags=" + listTags +
                 '}';
     }
+
+    @PrePersist
+    @PreUpdate
+    public void validateDates() {
+        if (this.date_create.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Task creation date cannot be in the past.");
+        }
+    }
+
 }

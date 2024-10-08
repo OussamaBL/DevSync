@@ -14,11 +14,11 @@ public class Tag {
     private int id;
     @Column(name = "name",unique = true,nullable = false)
     private String name;
-    @ManyToMany(mappedBy = "listTags")
-    private List<Task> listTasks;
+    @ManyToMany(mappedBy = "listTags", fetch = FetchType.EAGER)
+    private List<Task> listTasks ;
 
     public Tag() {
-
+        this.listTasks = new ArrayList<>();
     }
     public int getId() {
         return id;
@@ -49,6 +49,11 @@ public class Tag {
         this.name = name;
         this.listTasks = new ArrayList<>();
     }
+    public Tag(String name){
+        this.name=name;
+        this.listTasks=new ArrayList<>();
+    }
+
     public Tag(int id){
         this.id=id;
         this.listTasks = new ArrayList<>();

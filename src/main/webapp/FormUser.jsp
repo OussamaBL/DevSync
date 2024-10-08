@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Model.User" %>
 <%
-    User user = (User) request.getAttribute("user"); // Assuming you set the user object in request scope
+    User user = (User) request.getAttribute("user");
 %>
 <html>
 <head>
@@ -20,11 +20,15 @@
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" value="<%= user != null ? user.getFirst_name() : "" %>" required/>
+            <input type="text" class="form-control" id="name" name="first_name" value="<%= user != null ? user.getFirst_name() : "" %>" required/>
         </div>
         <div class="form-group">
             <label for="lastName">lastName:</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= user != null ? user.getLast_name() : "" %>" required/>
+            <input type="text" class="form-control" id="lastName" name="last_name" value="<%= user != null ? user.getLast_name() : "" %>" required/>
+        </div>
+        <div class="form-group">
+            <label for="tokens">Tokens:</label>
+            <input type="number" class="form-control" id="tokens" name="tokens" value="<%= user != null ? user.getTokens() : "" %>" required/>
         </div>
 
         <div class="form-group">

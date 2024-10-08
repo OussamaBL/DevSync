@@ -37,10 +37,12 @@ public class User {
     @Column(name = "tokens")
     private int tokens;
 
-    @OneToMany(mappedBy = "user_create")
+    // Eager fetching for tasks created by the user
+    @OneToMany(mappedBy = "user_create", fetch = FetchType.EAGER)
     private List<Task> createdTasks;
 
-    @OneToMany(mappedBy = "user_assigne")
+    // Eager fetching for tasks assigned to the user
+    @OneToMany(mappedBy = "user_assigne", fetch = FetchType.EAGER)
     private List<Task> assignedTasks;
 
     public List<Task> getCreatedTasks() {
