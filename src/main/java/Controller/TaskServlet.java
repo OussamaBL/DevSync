@@ -82,7 +82,6 @@ public class TaskServlet extends HttpServlet {
             Tag tag;
             for (String tagName : tagNames) {
                 Optional<Tag> t = tagService.findByName(tagName.trim());
-
                 tag=new Tag();
                 if (!t.isPresent()) {
                     tag.setName(tagName.trim());
