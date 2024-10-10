@@ -5,7 +5,9 @@ import Model.Enums.UserType;
 import Model.Tag;
 import Model.Task;
 import Model.User;
+import Service.TagService;
 import Service.TaskService;
+import Service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,16 +19,21 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "tasks",urlPatterns = {"/tasks"})
 public class TaskServlet extends HttpServlet {
 
     private TaskService taskService;
+    private UserService userService;
+    private TagService tagService;
 
     @Override
     public void init() throws ServletException {
         try {
             taskService = new TaskService();
+            userService = new UserService();
+            tagService = new TagService();
         } catch (Exception e) {
             throw new ServletException("Failed to initialize TaskServlet", e);
         }
@@ -40,12 +47,10 @@ public class TaskServlet extends HttpServlet {
         if (action == null) {
             User user=(User) request.getSession().getAttribute("user");
             List<Task> listTasks=new ArrayList<>();
-            if(user.getRole_user().name().equals("MANAGER")){
-                listTasks=taskService.getAllTasks();
-            }
-            else{
-                listTasks=taskService.getTasksUser(user);
-            }
+            if (user.getRole_user() == UserType.MANAGER)
+                listTasks = taskService.getAllTasks();
+            else listTasks=taskService.getTasksUser(user);
+
             request.setAttribute("listTasks",listTasks);
             RequestDispatcher requestDispatcher=request.getRequestDispatcher("listTasks.jsp");
             requestDispatcher.forward(request,response);
@@ -55,7 +60,14 @@ public class TaskServlet extends HttpServlet {
             User user = userService.findUserById(id);
             request.setAttribute("user", user);
             request.getRequestDispatcher("FormUser.jsp").forward(request, response);*/
-        }
+            }
+            else if (action.equals("newTask")){
+                List<User> userList = userService.getUsersStatus();
+                request.setAttribute("userList", userList);
+                RequestDispatcher requestDispatcher=request.getRequestDispatcher("newTask.jsp");
+                requestDispatcher.forward(request,response);
+            }
+
     }
 
     @Override
@@ -63,26 +75,41 @@ public class TaskServlet extends HttpServlet {
         try {
             String title = request.getParameter("title");
             String description = request.getParameter("description");
-            LocalDate dateCreate = LocalDate.parse(request.getParameter("date_create"));
-            LocalDate dateFin = request.getParameter("date_fin") != null ? LocalDate.parse(request.getParameter("date_fin")) : null;
-            String statusStr = request.getParameter("status");
-            TaskStatus status = TaskStatus.valueOf(statusStr.toUpperCase());
-
+            LocalDate date_start = LocalDate.parse(request.getParameter("date_start"));
+            LocalDate date_fin = LocalDate.parse(request.getParameter("date_fin"));
             String[] tagNames = request.getParameter("tags").split(",");
             List<Tag> tags = new ArrayList<>();
+            Tag tag;
             for (String tagName : tagNames) {
-                Tag tag = new Tag(tagName.trim());
+                Optional<Tag> t = tagService.findByName(tagName.trim());
+
+                tag=new Tag();
+                if (!t.isPresent()) {
+                    tag.setName(tagName.trim());
+                    tag= tagService.insertTag(tag);
+                }
+                else{
+                    tag.setId(t.get().getId());
+                    tag.setName(t.get().getName());
+                }
                 tags.add(tag);
             }
 
-            Task task = new Task(title,description,dateCreate,dateFin,status);
-            task.setListTags(tags);
+            User user_auth = (User) request.getSession().getAttribute("user");
+            long user_assigne_id;
 
-            taskService.insertTask(task);
+            if (user_auth.getRole_user()== UserType.MANAGER)
+                user_assigne_id = Long.parseLong(request.getParameter("user_assigne_id"));
+            else
+                user_assigne_id = user_auth.getId();
+
+            Task task = new Task(title, description, date_start, date_fin, new User(user_auth.getId()), new User(user_assigne_id), TaskStatus.NOT_STARTED);
+            task.setListTags(tags);
+            taskService.insertTask(task,user_auth);
             response.sendRedirect("tasks?status=success");
-        } catch (Exception e) {
-            response.sendRedirect("tasks?status="+e.getMessage());
-            //e.printStackTrace();
+        }
+        catch (Exception e) {
+            response.sendRedirect("tasks?status=" + e.getMessage());
         }
     }
 

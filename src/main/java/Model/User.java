@@ -117,27 +117,18 @@ public class User {
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }
-
     public User(){
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", email='" + email + '\'' +
-                ", role_user=" + role_user.name() +
-                ", tokens=" + tokens +
-                ", createdTasks=" + createdTasks +
-                ", assignedTasks=" + assignedTasks +
-                '}';
+    public User(Long id){
+        this.id=id;
+        createdTasks=new ArrayList<>();
+        assignedTasks=new ArrayList<>();
     }
+
+
 
     public String getFirst_name() {
         return first_name;
@@ -170,4 +161,6 @@ public class User {
     public void setTokens(int tokens) {
         this.tokens = tokens;
     }
+
+
 }

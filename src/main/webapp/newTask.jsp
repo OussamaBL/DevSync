@@ -2,6 +2,7 @@
 <%@ page import="Model.Task" %>
 <%@ page import="Model.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Model.Enums.UserType" %>
 <html>
 <head>
     <title>Create Task</title>
@@ -11,7 +12,7 @@
 <jsp:include page="Layouts/Nav.jsp" />
 <div class="container mt-5">
     <h1 class="mb-4">Create Task</h1>
-    <form action="tasks" method="post">
+    <form action="tasks" method="post" onsubmit="return validateDates()">
 
         <div class="form-group">
             <label for="title">Title:</label>
@@ -24,8 +25,8 @@
         </div>
 
         <div class="form-group">
-            <label for="date_create">Creation Date:</label>
-            <input type="date" class="form-control" id="date_create" name="date_create" required><br>
+            <label for="date_start">Start Date:</label>
+            <input type="date" class="form-control" id="date_start" name="date_start" required><br>
         </div>
 
         <div class="form-group">
@@ -47,9 +48,9 @@
         </div>
 
         <% User us=(User) request.getSession().getAttribute("user");
-            if (us.getRole_user().name().equals("MANAGER")){ %>
-        <label for="user_assigne">Assigned:</label>
-        <select id="user_assigne" class="form-control" name="user_assigne">
+            if (us.getRole_user()== UserType.MANAGER){ %>
+        <label for="user_assigne_id">Assigned:</label>
+        <select id="user_assigne_id" class="form-control" name="user_assigne_id">
             <option value="none">Select a user</option>
             <%
                 List<User> userList = (List<User>) request.getAttribute("userList");
@@ -62,13 +63,39 @@
         <% } %>
         <br>
 
-        
+
         <input type="submit" class="btn btn-primary" value="Create Task">
 
         <a href="users" class="btn btn-secondary">Cancel</a>
         <a href="home" class="btn btn-info">Back to Home</a>
     </form>
 </div>
+
+
+    <script>
+       /* function validateDates() {
+        const startDateInput = document.getElementById('date_start').value;
+        const dueDateInput = document.getElementById('date_fin').value;
+
+        const startDate = new Date(startDateInput);
+        const dueDate = new Date(dueDateInput);
+        const currentDate = new Date();
+
+        currentDate.setDate(currentDate.getDate() + 3);
+
+        if (startDate < currentDate) {
+        alert("The start date must be at least 3 days after the current date.");
+        return false;
+    }
+
+        if (dueDate <= startDate) {
+        alert("The due date must be after the start date.");
+        return false;
+    }
+
+        return true;
+    }*/
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

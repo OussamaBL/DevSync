@@ -39,16 +39,11 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         User us = (User) request.getSession().getAttribute("user");
-        System.out.println(us.getFirst_name());
         if (action == null) {
             List<User> userList = userService.findAllUsers();
-            System.out.println(userList);
             request.setAttribute("userList", userList);
-
             RequestDispatcher requestDispatcher=request.getRequestDispatcher("ListUser.jsp");
             requestDispatcher.forward(request,response);
-
-            //request.getRequestDispatcher("ListUser.jsp").forward(request, response);
         } else if (action.equals("edit")) {
             Long id = Long.parseLong(request.getParameter("id"));
             User user = userService.findUserById(id);

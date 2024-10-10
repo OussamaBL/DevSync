@@ -21,6 +21,18 @@ public class Task {
     private String description;
     @Column(name = "date_create",nullable = false)
     private LocalDate date_create;
+
+    public LocalDate getDate_start() {
+        return date_start;
+    }
+
+    public void setDate_start(LocalDate date_start) {
+        this.date_start = date_start;
+    }
+
+    @Column(name = "date_start")
+    private LocalDate date_start;
+
     @Column(name = "date_fin",nullable = true)
     private LocalDate date_fin;
     @Enumerated(EnumType.STRING)
@@ -41,10 +53,6 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> listTags ;
-
-    public Task() {
-
-    }
 
     public int getId() {
         return id;
@@ -94,6 +102,7 @@ public class Task {
         this.date_create = date_create;
     }
 
+
     public LocalDate getDate_fin() {
         return date_fin;
     }
@@ -120,11 +129,11 @@ public class Task {
         this.listTags = listTags;
     }
 
-    public Task(int id, String title, String description, LocalDate date_create, LocalDate date_fin, TaskStatus status, User user_create,User user_assigne) {
+    public Task(int id, String title, String description,LocalDate date_start, LocalDate date_fin, TaskStatus status, User user_create,User user_assigne) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.date_create = date_create;
+        this.date_start = date_start;
         this.date_fin = date_fin;
         this.status = status;
         this.user_create = user_create;
@@ -135,12 +144,18 @@ public class Task {
         this.id=id;
         this.listTags = new ArrayList<>();
     }
-    public Task(String title,String description,LocalDate date_create, LocalDate date_fin, TaskStatus status){
+    public Task(){
+        this.listTags = new ArrayList<>();
+    }
+    public Task(String title,String description,LocalDate date_start, LocalDate date_fin,User user_create,User user_assigne, TaskStatus status){
         this.title=title;
         this.description=description;
-        this.date_create=date_create;
+        this.date_create=LocalDate.now();
+        this.date_start=date_start;
         this.date_fin=date_fin;
         this.status=status;
+        this.user_create=user_create;
+        this.user_assigne=user_assigne;
         this.listTags=new ArrayList<>();
     }
 
@@ -151,20 +166,21 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", date_create=" + date_create +
+                ", date_start=" + date_start +
                 ", date_fin=" + date_fin +
                 ", status=" + status +
                 ", user_create=" + user_create +
                 ", user_assigne=" + user_assigne +
-                ", listTags=" + listTags +
+               // ", listTags=" + listTags +
                 '}';
     }
 
-    @PrePersist
+    /*@PrePersist
     @PreUpdate
     public void validateDates() {
         if (this.date_create.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Task creation date cannot be in the past.");
         }
-    }
+    }*/
 
 }

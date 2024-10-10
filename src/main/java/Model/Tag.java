@@ -51,7 +51,6 @@ public class Tag {
     }
     public Tag(String name){
         this.name=name;
-        this.listTasks=new ArrayList<>();
     }
 
     public Tag(int id){

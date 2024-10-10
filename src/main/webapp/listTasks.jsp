@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Task" %>
 <%@ page import="Model.User" %>
+<%@ page import="Model.Tag" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -25,8 +26,8 @@
     <div class="alert alert-success" role="alert">
         <% if ("success".equals(status)) { %>
         Task has been successfully created/updated!
-        <% } else if ("failure".equals(status)) { %>
-        There was an error creating/updating the Task.
+        <% } else{ %>
+        <%= status %>
         <% } %>
     </div>
     <% } %>
@@ -41,6 +42,7 @@
             <th>Status</th>
             <th>User Assigned</th>
             <th>User Created</th>
+            <th>Tags</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -56,8 +58,13 @@
             <td><%= task.getTitle() %></td>
             <td><%= task.getDescription() %></td>
             <td><%= task.getStatus() %></td>
-            <td><%= task.getUser_create().getFirst_name()+" "+task.getUser_create().getLast_name() %></td>
             <td><%= task.getUser_assigne().getFirst_name()+" "+task.getUser_assigne().getLast_name() %></td>
+            <td><%= task.getUser_create().getFirst_name()+" "+task.getUser_create().getLast_name() %></td>
+            <td>
+                <% for (Tag t: task.getListTags()) { %>
+                    <%=t.getName() %><br>
+                <%  } %>
+            </td>
             <td>
                 <a href="tasks?action=edit&id=<%= task.getId() %>" class="btn btn-warning btn-sm">Edit</a>
                 <form action="tasks" method="post" style="display:inline;">
@@ -74,7 +81,7 @@
         </tbody>
     </table>
 
-    <a href="newTask.jsp" class="btn btn-primary">Add New Task</a>
+    <a href="tasks?action=newTask" class="btn btn-primary">Add New Task</a>
     <a href="tasks" class="btn btn-info">Back to Home</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

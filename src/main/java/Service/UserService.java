@@ -39,4 +39,7 @@ public class UserService {
     public List<User> findAllUsers() {
         return userRepository.getAllUsers();
     }
+    public List<User> getUsersStatus(){
+        return userRepository.getUsersStatus();
+    }
 }

@@ -5,6 +5,7 @@ import Model.User;
 import Repository.Interfaces.TaskInterface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,20 @@ public class TaskRepository implements TaskInterface {
     @Override
     public List<Task> getAllTasks() {
         try {
-            List<Task> listTasks= entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
-            return listTasks;
+            TypedQuery<Task> query = entityManager.createQuery(
+                    "SELECT DISTINCT t FROM Task t " +
+                            "JOIN FETCH t.user_create " +
+                            "JOIN FETCH t.user_assigne " +
+                            "LEFT JOIN FETCH t.listTags",
+                    Task.class
+            );
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
+
     public List<Task> getTasksUser(User user) {
         try {
             List<Task> listTasks = entityManager.createQuery(

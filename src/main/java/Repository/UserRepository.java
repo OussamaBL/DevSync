@@ -27,6 +27,10 @@ public class UserRepository implements UserInterface {
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
     }
+    public List<User> getUsersStatus() {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u where u.role_user='USER'", User.class);
+        return query.getResultList();
+    }
 
     @Override
     public void addUser(User user) {
