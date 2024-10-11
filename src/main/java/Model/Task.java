@@ -140,6 +140,11 @@ public class Task {
         this.user_assigne = user_assigne;
         this.listTags = new ArrayList<>();
     }
+    public Task(int id,LocalDate date_fin,TaskStatus taskStatus){
+        this.id=id;
+        this.date_fin=date_fin;
+        this.status=taskStatus;
+    }
     public Task(int id){
         this.id=id;
         this.listTags = new ArrayList<>();

@@ -3,6 +3,7 @@
 <%@ page import="Model.Task" %>
 <%@ page import="Model.User" %>
 <%@ page import="Model.Tag" %>
+<%@ page import="Model.Enums.TaskStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -25,7 +26,7 @@
     %>
     <div class="alert alert-success" role="alert">
         <% if ("success".equals(status)) { %>
-        Task has been successfully created/updated!
+        Task has been successfully created/updated/deleted!
         <% } else{ %>
         <%= status %>
         <% } %>
@@ -58,8 +59,8 @@
             <td><%= task.getTitle() %></td>
             <td><%= task.getDescription() %></td>
             <td><%= task.getStatus() %></td>
-            <td><%= task.getUser_assigne().getFirst_name()+" "+task.getUser_assigne().getLast_name() %></td>
-            <td><%= task.getUser_create().getFirst_name()+" "+task.getUser_create().getLast_name() %></td>
+            <td><%= task.getUser_assigne() != null ? task.getUser_assigne().getFirst_name() + " " + task.getUser_assigne().getLast_name() : "Unassigned" %></td>
+            <td><%= task.getUser_create() != null ? task.getUser_create().getFirst_name() + " " + task.getUser_create().getLast_name() : "Unassigned" %></td>
             <td>
                 <% for (Tag t: task.getListTags()) { %>
                     <%=t.getName() %><br>
@@ -69,11 +70,22 @@
                 <a href="tasks?action=edit&id=<%= task.getId() %>" class="btn btn-warning btn-sm">Edit</a>
                 <form action="tasks" method="post" style="display:inline;">
                     <input type="hidden" name="id" value="<%= task.getId() %>"/>
-                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="hidden" name="_method" value="deleteTask"/>
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                <form action="tasks" method="post" style="display: inline" id="formChangeStatus<%=task.getId()%>">
+                    <input type="hidden" name="id_task" value="<%= task.getId()%>">
+                    <input type="hidden" name="date_fin" value="<%= task.getDate_fin()%>">
+                    <input type="hidden" name="_method" value="changeStatus"/>
+                    <select name="status" onchange="document.getElementById('formChangeStatus<%=task.getId()%>').submit()">
+                        <option value="NOT_STARTED" <%= task.getStatus()==TaskStatus.NOT_STARTED ? "selected" : "" %>>NOT_STARTED</option>
+                        <option value="IN_PROGRESS" <%= task.getStatus()==TaskStatus.IN_PROGRESS ? "selected" : "" %>>IN_PROGRESS</option>
+                        <option value="COMPLETED" <%= task.getStatus()==TaskStatus.COMPLETED ? "selected" : "" %>>COMPLETED</option>
+                    </select>
                 </form>
             </td>
         </tr>
+
         <%
                 }
             }

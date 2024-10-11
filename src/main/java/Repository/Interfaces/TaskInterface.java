@@ -11,4 +11,6 @@ public interface TaskInterface {
     void addTask(Task task);
     void updateTask(Task task);
     void deleteTask(Long id);
+
+    void deleteTask(int id);
 }

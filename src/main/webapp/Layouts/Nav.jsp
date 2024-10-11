@@ -1,5 +1,6 @@
 
 <%@ page import="Model.User" %>
+<%@ page import="Model.Enums.UserType" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">DevSync</a>
     <div class="collapse navbar-collapse">
@@ -20,7 +21,11 @@
                 </form>
 
             </li>
+
             <li style="margin-left: 20px"><%= us.getFirst_name()+" "+us.getLast_name()+" : "+us.getRole_user().name() %></li>
+            <%if (us.getRole_user()== UserType.USER){ %>
+            <li style="margin-left: 20px">Tokens : <%= us.getTokens() %></li>
+            <% } %>
         </ul>
     </div>
 </nav>

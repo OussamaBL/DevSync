@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Enums.TaskStatus;
 import Model.Task;
 import Model.User;
 import Repository.TaskRepository;
@@ -40,6 +41,9 @@ public class TaskService {
         if (task.getUser_assigne() == null) {
             throw new RuntimeException("assigned user cannot be null.");
         }
+        if (task.getListTags().isEmpty()) {
+            throw new RuntimeException("Tags are required.");
+        }
 
         if (user_auth.getId() != task.getUser_assigne().getId()) {
             if (!task.getDate_start().isAfter(LocalDate.now().plusDays(3))) {
@@ -50,10 +54,18 @@ public class TaskService {
         taskRepository.addTask(task);
 
     }
+    public void changeStatusTask(Task task){
+        if(task.getStatus()==TaskStatus.COMPLETED && !task.getDate_fin().isAfter(LocalDate.now()))
+            throw new RuntimeException("marking a task as completed must be done before the due date.");
+        taskRepository.changeStatusTask(task);
+    }
     public List<Task> getAllTasks(){
         return taskRepository.getAllTasks();
     }
     public List<Task> getTasksUser(User user){
         return taskRepository.getTasksUser(user);
+    }
+    public void deleteTask(int id){
+        taskRepository.deleteTask(id);
     }
 }

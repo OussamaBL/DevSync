@@ -12,7 +12,7 @@
 <jsp:include page="Layouts/Nav.jsp" />
 <div class="container mt-5">
     <h1 class="mb-4">Create Task</h1>
-    <form action="tasks" method="post" onsubmit="return validateDates()">
+    <form action="tasks" method="post" >
 
         <div class="form-group">
             <label for="title">Title:</label>
@@ -51,19 +51,19 @@
             if (us.getRole_user()== UserType.MANAGER){ %>
         <label for="user_assigne_id">Assigned:</label>
         <select id="user_assigne_id" class="form-control" name="user_assigne_id">
-            <option value="none">Select a user</option>
             <%
                 List<User> userList = (List<User>) request.getAttribute("userList");
                 if (userList != null) {
                     for (User user : userList) {
             %>
-            <option value="<%= user.getId() %>"><%= user.getFirst_name()+" "+user.getLast_name() %></option>
-            <% }} %>
+            <option value="<%= user.getId() %>" <% if(us.getId()==user.getId()){ %> selected <% } %> >
+                <%= user.getFirst_name()+" "+user.getLast_name() %>
+            </option>
+            <% } } %>
         </select>
         <% } %>
         <br>
-
-
+        <input type="hidden" name="_method" value="addTask"/>
         <input type="submit" class="btn btn-primary" value="Create Task">
 
         <a href="users" class="btn btn-secondary">Cancel</a>

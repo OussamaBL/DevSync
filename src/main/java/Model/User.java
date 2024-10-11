@@ -106,14 +106,14 @@ public class User {
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }
-    public User(String username, String password, String first_name, String last_name, String email,int tokens, UserType user_role) {
+    public User(String username, String password, String first_name, String last_name, String email, UserType user_role) {
         this.username = username;
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.role_user = user_role;
-        this.tokens = tokens;
+        this.tokens = 2;
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }

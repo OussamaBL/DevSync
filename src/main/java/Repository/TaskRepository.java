@@ -5,6 +5,7 @@ import Model.User;
 import Repository.Interfaces.TaskInterface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
@@ -25,13 +26,15 @@ public class TaskRepository implements TaskInterface {
     public List<Task> getAllTasks() {
         try {
             TypedQuery<Task> query = entityManager.createQuery(
-                    "SELECT DISTINCT t FROM Task t " +
+                    "SELECT t FROM Task t " +
                             "JOIN FETCH t.user_create " +
                             "JOIN FETCH t.user_assigne " +
                             "LEFT JOIN FETCH t.listTags",
                     Task.class
             );
-            return query.getResultList();
+            List<Task> listTasks=query.getResultList();
+            listTasks.forEach(task -> entityManager.refresh(task));
+            return listTasks;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,11 +43,12 @@ public class TaskRepository implements TaskInterface {
 
     public List<Task> getTasksUser(User user) {
         try {
-            List<Task> listTasks = entityManager.createQuery(
+            TypedQuery<Task> query = entityManager.createQuery(
                             "SELECT t FROM Task t WHERE t.user_create.id = :userId OR t.user_assigne.id = :userId",
                             Task.class)
-                    .setParameter("userId", user.getId())
-                    .getResultList();
+                    .setParameter("userId", user.getId());
+            List<Task> listTasks=query.getResultList();
+            listTasks.forEach(task -> entityManager.refresh(task));
             return listTasks;
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,6 +72,29 @@ public class TaskRepository implements TaskInterface {
         }
     }
 
+    public void changeStatusTask(Task task){
+        EntityTransaction transaction= entityManager.getTransaction();
+        try{
+            transaction.begin();
+            Query query = entityManager.createQuery("UPDATE Task t SET t.status = :status WHERE t.id = :taskId");
+            query.setParameter("status", task.getStatus());
+            query.setParameter("taskId", task.getId());
+
+            int rowsUpdated = query.executeUpdate();
+            if (rowsUpdated == 0) {
+                System.out.println("No task found with ID: " + task.getId());
+            }
+
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+    }
     @Override
     public void updateTask(Task task) {
 
@@ -76,5 +103,23 @@ public class TaskRepository implements TaskInterface {
     @Override
     public void deleteTask(Long id) {
 
+    }
+
+    @Override
+    public void deleteTask(int id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            Task task = entityManager.find(Task.class, id);
+            if (task != null) {
+                entityManager.remove(task);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }

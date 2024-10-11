@@ -68,9 +68,8 @@ public class UserServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            int tokens = Integer.parseInt(request.getParameter("tokens"));
 
-            User user = new User(username,hashedPassword,first_name,last_name, email,tokens, UserType.USER);
+            User user = new User(username,hashedPassword,first_name,last_name, email, UserType.USER);
             if (id != null && !id.isEmpty()) {
                 user.setId(Long.parseLong(id));
                 userService.updateUser(user);
@@ -80,8 +79,7 @@ public class UserServlet extends HttpServlet {
         }
         response.sendRedirect("users?status=success");
     }
-
-
+    
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));

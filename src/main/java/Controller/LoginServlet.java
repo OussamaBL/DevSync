@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             User user = authenticate(email, password);
             if (user != null) {
                 req.getSession().setAttribute("user", user);
-                resp.sendRedirect("tasks");
+                resp.sendRedirect("tasks?action=list");
             } else {
                 req.setAttribute("error", "Invalid username or password");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("Login.jsp");

@@ -26,10 +26,10 @@
             <label for="lastName">lastName:</label>
             <input type="text" class="form-control" id="lastName" name="last_name" value="<%= user != null ? user.getLast_name() : "" %>" required/>
         </div>
-        <div class="form-group">
+       <%-- <div class="form-group">
             <label for="tokens">Tokens:</label>
             <input type="number" class="form-control" id="tokens" name="tokens" value="<%= user != null ? user.getTokens() : "" %>" required/>
-        </div>
+        </div>--%>
 
         <div class="form-group">
             <label for="email">Email:</label>

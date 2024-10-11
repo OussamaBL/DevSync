@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.48">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>843</IntrospectionStateNumber>
+      <IntrospectionStateNumber>926</IntrospectionStateNumber>
       <ServerVersion>16.1</ServerVersion>
       <StartupTime>1728497591</StartupTime>
       <TimeZones>true ACDT
@@ -1407,7 +1399,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>843</IntrospectionStateNumber>
+      <IntrospectionStateNumber>926</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>Devsync</OwnerName>
     </database>
@@ -4831,7 +4823,7 @@ true posixrules
     <schema id="264" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>843</IntrospectionStateNumber>
+      <IntrospectionStateNumber>926</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4839,7 +4831,7 @@ true posixrules
     <sequence id="265" parent="264" name="tags_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>24653</ObjectId>
-      <SequenceIdentity>1(7)</SequenceIdentity>
+      <SequenceIdentity>1(12)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>797</StateNumber>
       <OwnerName>Devsync</OwnerName>
@@ -4847,7 +4839,7 @@ true posixrules
     <sequence id="266" parent="264" name="tasks_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>24663</ObjectId>
-      <SequenceIdentity>1(5)</SequenceIdentity>
+      <SequenceIdentity>1(15)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>799</StateNumber>
       <OwnerName>Devsync</OwnerName>
@@ -4855,7 +4847,7 @@ true posixrules
     <sequence id="267" parent="264" name="users_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>24673</ObjectId>
-      <SequenceIdentity>1(6)</SequenceIdentity>
+      <SequenceIdentity>1(7)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>800</StateNumber>
       <OwnerName>Devsync</OwnerName>

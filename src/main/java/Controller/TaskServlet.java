@@ -42,83 +42,90 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+       try {
+           String action = request.getParameter("action");
 
-        if (action == null) {
-            User user=(User) request.getSession().getAttribute("user");
-            List<Task> listTasks=new ArrayList<>();
-            if (user.getRole_user() == UserType.MANAGER)
-                listTasks = taskService.getAllTasks();
-            else listTasks=taskService.getTasksUser(user);
+           if (action.equals("list")) {
+               User user = (User) request.getSession().getAttribute("user");
+               List<Task> listTasks = new ArrayList<>();
+               if (user.getRole_user() == UserType.MANAGER)
+                   listTasks = taskService.getAllTasks();
+               else listTasks = taskService.getTasksUser(user);
 
-            request.setAttribute("listTasks",listTasks);
-            RequestDispatcher requestDispatcher=request.getRequestDispatcher("listTasks.jsp");
-            requestDispatcher.forward(request,response);
+               request.setAttribute("listTasks", listTasks);
+               RequestDispatcher requestDispatcher = request.getRequestDispatcher("listTasks.jsp");
+               requestDispatcher.forward(request, response);
 
-         } else if (action.equals("edit")) {
+           } else if (action.equals("edit")) {
             /*Long id = Long.parseLong(request.getParameter("id"));
             User user = userService.findUserById(id);
             request.setAttribute("user", user);
             request.getRequestDispatcher("FormUser.jsp").forward(request, response);*/
-            }
-            else if (action.equals("newTask")){
-                List<User> userList = userService.getUsersStatus();
-                request.setAttribute("userList", userList);
-                RequestDispatcher requestDispatcher=request.getRequestDispatcher("newTask.jsp");
-                requestDispatcher.forward(request,response);
-            }
-
+           } else if (action.equals("newTask")) {
+               List<User> userList = userService.findAllUsers();
+               request.setAttribute("userList", userList);
+               RequestDispatcher requestDispatcher = request.getRequestDispatcher("newTask.jsp");
+               requestDispatcher.forward(request, response);
+           }
+       }
+       catch (Exception e) {
+           response.sendRedirect("tasks?status=" + e.getMessage());
+       }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String title = request.getParameter("title");
-            String description = request.getParameter("description");
-            LocalDate date_start = LocalDate.parse(request.getParameter("date_start"));
-            LocalDate date_fin = LocalDate.parse(request.getParameter("date_fin"));
-            String[] tagNames = request.getParameter("tags").split(",");
-            List<Tag> tags = new ArrayList<>();
-            Tag tag;
-            for (String tagName : tagNames) {
-                Optional<Tag> t = tagService.findByName(tagName.trim());
-                tag=new Tag();
-                if (!t.isPresent()) {
-                    tag.setName(tagName.trim());
-                    tag= tagService.insertTag(tag);
+            String method = request.getParameter("_method");
+            if ("addTask".equalsIgnoreCase(method)) {
+                String title = request.getParameter("title");
+                String description = request.getParameter("description");
+                LocalDate date_start = LocalDate.parse(request.getParameter("date_start"));
+                LocalDate date_fin = LocalDate.parse(request.getParameter("date_fin"));
+                String[] tagNames = request.getParameter("tags").split(",");
+                List<Tag> tags = new ArrayList<>();
+                Tag tag;
+                for (String tagName : tagNames) {
+                    Optional<Tag> t = tagService.findByName(tagName.trim());
+                    tag=new Tag();
+                    if (!t.isPresent()) {
+                        tag.setName(tagName.trim());
+                        tag= tagService.insertTag(tag);
+                    }
+                    else{
+                        tag.setId(t.get().getId());
+                        tag.setName(t.get().getName());
+                    }
+                    tags.add(tag);
                 }
-                else{
-                    tag.setId(t.get().getId());
-                    tag.setName(t.get().getName());
-                }
-                tags.add(tag);
+
+                User user_auth = (User) request.getSession().getAttribute("user");
+                long user_assigne_id;
+
+                if (user_auth.getRole_user()== UserType.MANAGER)
+                    user_assigne_id = Long.parseLong(request.getParameter("user_assigne_id"));
+                else
+                    user_assigne_id = user_auth.getId();
+
+                Task task = new Task(title, description, date_start, date_fin, new User(user_auth.getId()), new User(user_assigne_id), TaskStatus.NOT_STARTED);
+                task.setListTags(tags);
+                taskService.insertTask(task,user_auth);
+            } else if ("changeStatus".equalsIgnoreCase(method)) {
+                int id = Integer.parseInt(request.getParameter("id_task"));
+                LocalDate date_fin = LocalDate.parse(request.getParameter("date_fin"));
+                TaskStatus status = TaskStatus.valueOf(request.getParameter("status"));
+                taskService.changeStatusTask(new Task(id,date_fin,status));
+
+            } else if ("deleteTask".equalsIgnoreCase(method)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                taskService.deleteTask(id);
             }
 
-            User user_auth = (User) request.getSession().getAttribute("user");
-            long user_assigne_id;
-
-            if (user_auth.getRole_user()== UserType.MANAGER)
-                user_assigne_id = Long.parseLong(request.getParameter("user_assigne_id"));
-            else
-                user_assigne_id = user_auth.getId();
-
-            Task task = new Task(title, description, date_start, date_fin, new User(user_auth.getId()), new User(user_assigne_id), TaskStatus.NOT_STARTED);
-            task.setListTags(tags);
-            taskService.insertTask(task,user_auth);
-            response.sendRedirect("tasks?status=success");
+            response.sendRedirect("tasks?action=list&status=success");
         }
         catch (Exception e) {
-            response.sendRedirect("tasks?status=" + e.getMessage());
+            response.sendRedirect("tasks?action=list&status=" + e.getMessage());
         }
-    }
-
-
-
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*Long id = Long.parseLong(request.getParameter("id"));
-        userService.deleteUser(id);
-        response.sendRedirect("users");*/
     }
 
 }
