@@ -1,7 +1,9 @@
 package Service;
 
 import Model.Enums.TaskStatus;
+import Model.Enums.UserType;
 import Model.Task;
+import Model.TaskRequest;
 import Model.User;
 import Repository.TaskRepository;
 import Repository.UserRepository;
@@ -11,6 +13,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class TaskService {
 
@@ -65,7 +68,23 @@ public class TaskService {
     public List<Task> getTasksUser(User user){
         return taskRepository.getTasksUser(user);
     }
-    public void deleteTask(int id){
-        taskRepository.deleteTask(id);
+
+    public Optional<Task> getTaskById(int id){
+        return taskRepository.getTaskById(id);
+    }
+    public void deleteTask(int id,User user_auth){
+        Optional<Task> task=this.getTaskById(id);
+        if(task.isPresent()){
+            Task t=task.get();
+            if(user_auth.getRole_user()== UserType.USER && user_auth.getId()!=t.getUser_create().getId() && user_auth.getMonthlyToken()<1){
+                throw new RuntimeException("the user don't have the jetons to delete the task");
+            }
+            else taskRepository.deleteTask(id);
+        }
+        else throw new RuntimeException("Task not exists");
+
+    }
+    public void updateTask(Task task){
+         taskRepository.updateTask(task);
     }
 }

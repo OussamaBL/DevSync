@@ -4,6 +4,7 @@
 <%@ page import="Model.User" %>
 <%@ page import="Model.Tag" %>
 <%@ page import="Model.Enums.TaskStatus" %>
+<%@ page import="Model.Enums.UserType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -44,6 +45,7 @@
             <th>User Assigned</th>
             <th>User Created</th>
             <th>Tags</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -67,12 +69,33 @@
                 <%  } %>
             </td>
             <td>
+                <%= task.getStatus().name() %>
+            </td>
+            <td>
                 <a href="tasks?action=edit&id=<%= task.getId() %>" class="btn btn-warning btn-sm">Edit</a>
-                <form action="tasks" method="post" style="display:inline;">
-                    <input type="hidden" name="id" value="<%= task.getId() %>"/>
-                    <input type="hidden" name="_method" value="deleteTask"/>
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <% User us=(User) request.getSession().getAttribute("user");
+                    if (us.getId()== task.getUser_create().getId()){ %>
+                    <form action="tasks" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="<%= task.getId() %>"/>
+                        <input type="hidden" name="_method" value="deleteTask"/>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                <% } else {%>
+                <form action="requestTask" method="post" style="display:inline;">
+                    <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
+                    <input type="hidden" name="user_id" value="<%= us.getId() %>"/>
+                    <input type="hidden" name="requestType" value="DELETE"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete with jeton</button>
                 </form>
+
+                <form action="requestTask" method="post" style="display:inline;">
+                    <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
+                    <input type="hidden" name="user_id" value="<%= us.getId() %>"/>
+                    <input type="hidden" name="requestType" value="REJECTED"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                </form>
+
+                <% } %>
                 <form action="tasks" method="post" style="display: inline" id="formChangeStatus<%=task.getId()%>">
                     <input type="hidden" name="id_task" value="<%= task.getId()%>">
                     <input type="hidden" name="date_fin" value="<%= task.getDate_fin()%>">

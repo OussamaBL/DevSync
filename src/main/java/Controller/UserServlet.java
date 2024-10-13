@@ -79,7 +79,7 @@ public class UserServlet extends HttpServlet {
         }
         response.sendRedirect("users?status=success");
     }
-    
+
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));

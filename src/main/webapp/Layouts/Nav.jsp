@@ -24,7 +24,8 @@
 
             <li style="margin-left: 20px"><%= us.getFirst_name()+" "+us.getLast_name()+" : "+us.getRole_user().name() %></li>
             <%if (us.getRole_user()== UserType.USER){ %>
-            <li style="margin-left: 20px">Tokens : <%= us.getTokens() %></li>
+            <li style="margin-left: 20px">Daily Tokens : <%= us.getDailyToken() %></li>
+            <li style="margin-left: 20px">Montly Tokens : <%= us.getMonthlyToken() %></li>
             <% } %>
         </ul>
     </div>

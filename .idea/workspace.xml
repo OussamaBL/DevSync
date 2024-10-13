@@ -10,6 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cc29f3e-0a99-4def-84d0-4ed8717f03dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/ManagerRequestTask_Servlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/TaskRequestServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Enums/StatusRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Enums/TypeRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/TaskRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Repository/TaskRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Service/TaskRequestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1/storage_v2/_src_/database/Devsync.ECQ2wA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1517f576-b72e-47e5-b1b8-7fa68155d1a1/storage_v2/_src_/database/Devsync.ECQ2wA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -21,10 +28,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Repository/Interfaces/TaskInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/Interfaces/TaskInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/TaskRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/FormUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/FormUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Layouts/Nav.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Layouts/Nav.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/listTasks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listTasks.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/newTask.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/newTask.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,9 +41,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -143,7 +149,7 @@
       <workItem from="1727785973051" duration="11562000" />
       <workItem from="1727857529409" duration="11420000" />
       <workItem from="1727944670673" duration="123559000" />
-      <workItem from="1728497570389" duration="41575000" />
+      <workItem from="1728497570389" duration="82560000" />
     </task>
     <servers />
   </component>

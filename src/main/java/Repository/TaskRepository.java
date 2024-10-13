@@ -3,13 +3,11 @@ package Repository;
 import Model.Task;
 import Model.User;
 import Repository.Interfaces.TaskInterface;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TaskRepository implements TaskInterface {
     private final EntityManager entityManager;
@@ -17,9 +15,17 @@ public class TaskRepository implements TaskInterface {
     public TaskRepository(EntityManager entityManager){
         this.entityManager=entityManager;
     }
+
     @Override
-    public Task getTaskById(Long id) {
-        return null;
+    public Optional<Task> getTaskById(int id) {
+        try {
+            Task t = entityManager.find(Task.class, id);
+            return Optional.of(t);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new RuntimeException("error for Task by id: " + e.getMessage());
+        }
     }
 
     @Override
@@ -97,7 +103,17 @@ public class TaskRepository implements TaskInterface {
     }
     @Override
     public void updateTask(Task task) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.merge(task);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
+        }
     }
 
     @Override
@@ -122,4 +138,5 @@ public class TaskRepository implements TaskInterface {
             e.printStackTrace();
         }
     }
+
 }

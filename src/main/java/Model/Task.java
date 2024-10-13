@@ -22,6 +22,9 @@ public class Task {
     @Column(name = "date_create",nullable = false)
     private LocalDate date_create;
 
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<TaskRequest> requests;
+
     public LocalDate getDate_start() {
         return date_start;
     }
@@ -53,6 +56,17 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> listTags ;
+
+    @Column(name = "isRefused")
+    private Boolean isRefused;
+
+    public Boolean getRefused() {
+        return isRefused;
+    }
+
+    public void setRefused(Boolean refused) {
+        isRefused = refused;
+    }
 
     public int getId() {
         return id;
@@ -138,6 +152,7 @@ public class Task {
         this.status = status;
         this.user_create = user_create;
         this.user_assigne = user_assigne;
+        this.isRefused = false;
         this.listTags = new ArrayList<>();
     }
     public Task(int id,LocalDate date_fin,TaskStatus taskStatus){
@@ -161,6 +176,7 @@ public class Task {
         this.status=status;
         this.user_create=user_create;
         this.user_assigne=user_assigne;
+        this.isRefused=false;
         this.listTags=new ArrayList<>();
     }
 

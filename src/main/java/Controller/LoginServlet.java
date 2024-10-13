@@ -56,6 +56,8 @@ public class LoginServlet extends HttpServlet {
             User user = authenticate(email, password);
             if (user != null) {
                 req.getSession().setAttribute("user", user);
+                req.getSession().setAttribute("dailyTokens", user.getDailyToken());
+                req.getSession().setAttribute("monthlyTokens", user.getMonthlyToken());
                 resp.sendRedirect("tasks?action=list");
             } else {
                 req.setAttribute("error", "Invalid username or password");

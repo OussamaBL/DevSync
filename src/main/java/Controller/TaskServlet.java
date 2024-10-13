@@ -69,7 +69,7 @@ public class TaskServlet extends HttpServlet {
            }
        }
        catch (Exception e) {
-           response.sendRedirect("tasks?status=" + e.getMessage());
+           response.sendRedirect("tasks?action=list&status=" + e.getMessage());
        }
     }
 
@@ -118,7 +118,8 @@ public class TaskServlet extends HttpServlet {
 
             } else if ("deleteTask".equalsIgnoreCase(method)) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                taskService.deleteTask(id);
+                User user_auth = (User) request.getSession().getAttribute("user");
+                taskService.deleteTask(id,user_auth);
             }
 
             response.sendRedirect("tasks?action=list&status=success");

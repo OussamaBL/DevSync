@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.48">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>926</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
       <ServerVersion>16.1</ServerVersion>
       <StartupTime>1728497591</StartupTime>
       <TimeZones>true ACDT
@@ -1399,7 +1399,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>926</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>Devsync</OwnerName>
     </database>
@@ -4823,7 +4823,7 @@ true posixrules
     <schema id="264" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>926</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4831,20 +4831,28 @@ true posixrules
     <sequence id="265" parent="264" name="tags_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>24653</ObjectId>
-      <SequenceIdentity>1(12)</SequenceIdentity>
+      <SequenceIdentity>1(15)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>797</StateNumber>
       <OwnerName>Devsync</OwnerName>
     </sequence>
-    <sequence id="266" parent="264" name="tasks_id_seq">
+    <sequence id="266" parent="264" name="taskrequest_id_seq">
+      <DasType>integer|0s</DasType>
+      <ObjectId>32864</ObjectId>
+      <SequenceIdentity>1(1)</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1041</StateNumber>
+      <OwnerName>Devsync</OwnerName>
+    </sequence>
+    <sequence id="267" parent="264" name="tasks_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>24663</ObjectId>
-      <SequenceIdentity>1(15)</SequenceIdentity>
+      <SequenceIdentity>1(19)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>799</StateNumber>
       <OwnerName>Devsync</OwnerName>
     </sequence>
-    <sequence id="267" parent="264" name="users_id_seq">
+    <sequence id="268" parent="264" name="users_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>24673</ObjectId>
       <SequenceIdentity>1(7)</SequenceIdentity>
@@ -4852,31 +4860,37 @@ true posixrules
       <StateNumber>800</StateNumber>
       <OwnerName>Devsync</OwnerName>
     </sequence>
-    <table id="268" parent="264" name="tags">
+    <table id="269" parent="264" name="tags">
       <ObjectId>24654</ObjectId>
       <StateNumber>809</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Devsync</OwnerName>
     </table>
-    <table id="269" parent="264" name="task_tags">
+    <table id="270" parent="264" name="task_tags">
       <ObjectId>24660</ObjectId>
       <StateNumber>809</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Devsync</OwnerName>
     </table>
-    <table id="270" parent="264" name="tasks">
+    <table id="271" parent="264" name="taskrequest">
+      <ObjectId>32865</ObjectId>
+      <StateNumber>1042</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>Devsync</OwnerName>
+    </table>
+    <table id="272" parent="264" name="tasks">
       <ObjectId>24664</ObjectId>
-      <StateNumber>826</StateNumber>
+      <StateNumber>997</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Devsync</OwnerName>
     </table>
-    <table id="271" parent="264" name="users">
+    <table id="273" parent="264" name="users">
       <ObjectId>24674</ObjectId>
-      <StateNumber>811</StateNumber>
+      <StateNumber>999</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>Devsync</OwnerName>
     </table>
-    <column id="272" parent="268" name="id">
+    <column id="274" parent="269" name="id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;tags_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4885,14 +4899,14 @@ true posixrules
       <SequenceId>24653</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="273" parent="268" name="name">
+    <column id="275" parent="269" name="name">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>797</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="274" parent="268" name="tags_pkey">
+    <index id="276" parent="269" name="tags_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24658</ObjectId>
@@ -4901,7 +4915,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="275" parent="268" name="uk_t48xdq560gs3gap9g7jg36kgc">
+    <index id="277" parent="269" name="uk_t48xdq560gs3gap9g7jg36kgc">
       <ColNames>name</ColNames>
       <ObjectId>24683</ObjectId>
       <StateNumber>802</StateNumber>
@@ -4911,33 +4925,33 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="276" parent="268" name="tags_pkey">
+    <key id="278" parent="269" name="tags_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24659</ObjectId>
       <Primary>1</Primary>
       <StateNumber>797</StateNumber>
       <UnderlyingIndexId>24658</UnderlyingIndexId>
     </key>
-    <key id="277" parent="268" name="uk_t48xdq560gs3gap9g7jg36kgc">
+    <key id="279" parent="269" name="uk_t48xdq560gs3gap9g7jg36kgc">
       <ObjectId>24684</ObjectId>
       <StateNumber>802</StateNumber>
       <UnderlyingIndexId>24683</UnderlyingIndexId>
     </key>
-    <column id="278" parent="269" name="task_id">
+    <column id="280" parent="270" name="task_id">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>798</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="279" parent="269" name="tag_id">
+    <column id="281" parent="270" name="tag_id">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>798</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="280" parent="269" name="fk7xi1reghkj37gqwlr1ujxrxll">
+    <foreign-key id="282" parent="270" name="fk7xi1reghkj37gqwlr1ujxrxll">
       <ColNames>task_id</ColNames>
       <ObjectId>24696</ObjectId>
       <RefColNames>id</RefColNames>
@@ -4947,7 +4961,7 @@ true posixrules
       <RefTableName>tasks</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <foreign-key id="281" parent="269" name="fkeiqe3k9ent7icelm1cihqn164">
+    <foreign-key id="283" parent="270" name="fkeiqe3k9ent7icelm1cihqn164">
       <ColNames>tag_id</ColNames>
       <ObjectId>24691</ObjectId>
       <RefColNames>id</RefColNames>
@@ -4957,13 +4971,100 @@ true posixrules
       <RefTableName>tags</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <check id="282" parent="270" name="tasks_status_check">
+    <check id="284" parent="271" name="taskrequest_status_check">
+      <ColNames>status</ColNames>
+      <ObjectId>32869</ObjectId>
+      <Predicate>(status)::text = ANY ((ARRAY[&apos;PENDING&apos;::character varying, &apos;ACCEPTED&apos;::character varying, &apos;REJECTED&apos;::character varying])::text[])</Predicate>
+      <StateNumber>1041</StateNumber>
+    </check>
+    <check id="285" parent="271" name="taskrequest_type_check">
+      <ColNames>type</ColNames>
+      <ObjectId>32870</ObjectId>
+      <Predicate>(type)::text = ANY ((ARRAY[&apos;REJECT&apos;::character varying, &apos;DELETE&apos;::character varying])::text[])</Predicate>
+      <StateNumber>1041</StateNumber>
+    </check>
+    <column id="286" parent="271" name="id">
+      <DasType>integer|0s</DasType>
+      <DefaultExpression>nextval(&apos;taskrequest_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1041</StateNumber>
+      <SequenceId>32864</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="287" parent="271" name="date_request">
+      <DasType>date|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>1041</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="288" parent="271" name="status">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1041</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="289" parent="271" name="type">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>1041</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="290" parent="271" name="task_id">
+      <DasType>integer|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>1041</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="291" parent="271" name="user_id">
+      <DasType>bigint|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1041</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="292" parent="271" name="fko0saqbfvcfp0x9b9qbswmks3u">
+      <ColNames>task_id</ColNames>
+      <ObjectId>32875</ObjectId>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>1042</StateNumber>
+      <RefTableId>24664</RefTableId>
+      <RefTableName>tasks</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <foreign-key id="293" parent="271" name="fknfn5vyxg8o6y8p3x9qmhwucix">
+      <ColNames>user_id</ColNames>
+      <ObjectId>32880</ObjectId>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <StateNumber>1043</StateNumber>
+      <RefTableId>24674</RefTableId>
+      <RefTableName>users</RefTableName>
+      <RefTableKind>table</RefTableKind>
+    </foreign-key>
+    <index id="294" parent="271" name="taskrequest_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>32873</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1041</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="295" parent="271" name="taskrequest_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>32874</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1041</StateNumber>
+      <UnderlyingIndexId>32873</UnderlyingIndexId>
+    </key>
+    <check id="296" parent="272" name="tasks_status_check">
       <ColNames>status</ColNames>
       <ObjectId>24668</ObjectId>
       <Predicate>(status)::text = ANY ((ARRAY[&apos;NOT_STARTED&apos;::character varying, &apos;IN_PROGRESS&apos;::character varying, &apos;COMPLETED&apos;::character varying, &apos;OVERDUE&apos;::character varying])::text[])</Predicate>
       <StateNumber>799</StateNumber>
     </check>
-    <column id="283" parent="270" name="id">
+    <column id="297" parent="272" name="id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;tasks_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4972,59 +5073,65 @@ true posixrules
       <SequenceId>24663</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="284" parent="270" name="date_create">
+    <column id="298" parent="272" name="date_create">
       <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>799</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="285" parent="270" name="date_fin">
+    <column id="299" parent="272" name="date_fin">
       <DasType>date|0s</DasType>
       <Position>3</Position>
       <StateNumber>799</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="286" parent="270" name="description">
+    <column id="300" parent="272" name="description">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
       <StateNumber>799</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="287" parent="270" name="status">
+    <column id="301" parent="272" name="status">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>799</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="288" parent="270" name="title">
+    <column id="302" parent="272" name="title">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>799</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="289" parent="270" name="user_assigne_id">
+    <column id="303" parent="272" name="user_assigne_id">
       <DasType>bigint|0s</DasType>
       <Position>7</Position>
       <StateNumber>824</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="290" parent="270" name="user_create_id">
+    <column id="304" parent="272" name="user_create_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>799</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="291" parent="270" name="date_start">
+    <column id="305" parent="272" name="date_start">
       <DasType>date|0s</DasType>
       <Position>9</Position>
       <StateNumber>826</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <foreign-key id="292" parent="270" name="fkiw2xkernl4o9vcjbq2abklwc1">
+    <column id="306" parent="272" name="isrefused">
+      <DasType>boolean|0s</DasType>
+      <Position>10</Position>
+      <StateNumber>997</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <foreign-key id="307" parent="272" name="fkiw2xkernl4o9vcjbq2abklwc1">
       <ColNames>user_assigne_id</ColNames>
       <ObjectId>24701</ObjectId>
       <RefColNames>id</RefColNames>
@@ -5034,7 +5141,7 @@ true posixrules
       <RefTableName>users</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <foreign-key id="293" parent="270" name="fk5gdf2ci6wcnc3gkr3pusfx62m">
+    <foreign-key id="308" parent="272" name="fk5gdf2ci6wcnc3gkr3pusfx62m">
       <ColNames>user_create_id</ColNames>
       <ObjectId>24706</ObjectId>
       <RefColNames>id</RefColNames>
@@ -5044,7 +5151,7 @@ true posixrules
       <RefTableName>users</RefTableName>
       <RefTableKind>table</RefTableKind>
     </foreign-key>
-    <index id="294" parent="270" name="tasks_pkey">
+    <index id="309" parent="272" name="tasks_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24671</ObjectId>
@@ -5053,7 +5160,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="295" parent="270" name="uk_lbxbc3okttmi5ach9s94l296f">
+    <index id="310" parent="272" name="uk_lbxbc3okttmi5ach9s94l296f">
       <ColNames>title</ColNames>
       <ObjectId>24685</ObjectId>
       <StateNumber>804</StateNumber>
@@ -5063,25 +5170,25 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="296" parent="270" name="tasks_pkey">
+    <key id="311" parent="272" name="tasks_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24672</ObjectId>
       <Primary>1</Primary>
       <StateNumber>799</StateNumber>
       <UnderlyingIndexId>24671</UnderlyingIndexId>
     </key>
-    <key id="297" parent="270" name="uk_lbxbc3okttmi5ach9s94l296f">
+    <key id="312" parent="272" name="uk_lbxbc3okttmi5ach9s94l296f">
       <ObjectId>24686</ObjectId>
       <StateNumber>804</StateNumber>
       <UnderlyingIndexId>24685</UnderlyingIndexId>
     </key>
-    <check id="298" parent="271" name="users_role_user_check">
+    <check id="313" parent="273" name="users_role_user_check">
       <ColNames>role_user</ColNames>
       <ObjectId>24678</ObjectId>
       <Predicate>(role_user)::text = ANY ((ARRAY[&apos;MANAGER&apos;::character varying, &apos;USER&apos;::character varying])::text[])</Predicate>
       <StateNumber>800</StateNumber>
     </check>
-    <column id="299" parent="271" name="id">
+    <column id="314" parent="273" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -5090,55 +5197,67 @@ true posixrules
       <SequenceId>24673</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="300" parent="271" name="email">
+    <column id="315" parent="273" name="email">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="301" parent="271" name="first_name">
+    <column id="316" parent="273" name="first_name">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="302" parent="271" name="last_name">
+    <column id="317" parent="273" name="last_name">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="303" parent="271" name="password">
+    <column id="318" parent="273" name="password">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="304" parent="271" name="role_user">
+    <column id="319" parent="273" name="role_user">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="305" parent="271" name="tokens">
+    <column id="320" parent="273" name="tokens">
       <DasType>integer|0s</DasType>
       <Position>7</Position>
       <StateNumber>800</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="306" parent="271" name="username">
+    <column id="321" parent="273" name="username">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>800</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="307" parent="271" name="users_pkey">
+    <column id="322" parent="273" name="dailytoken">
+      <DasType>integer|0s</DasType>
+      <Position>9</Position>
+      <StateNumber>998</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="323" parent="273" name="monthlytoken">
+      <DasType>integer|0s</DasType>
+      <Position>10</Position>
+      <StateNumber>999</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="324" parent="273" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24681</ObjectId>
@@ -5147,7 +5266,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="308" parent="271" name="uk_6dotkott2kjsp8vw4d0m25fb7">
+    <index id="325" parent="273" name="uk_6dotkott2kjsp8vw4d0m25fb7">
       <ColNames>email</ColNames>
       <ObjectId>24687</ObjectId>
       <StateNumber>806</StateNumber>
@@ -5157,7 +5276,7 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="309" parent="271" name="uk_r43af9ap4edm43mmtq01oddj6">
+    <index id="326" parent="273" name="uk_r43af9ap4edm43mmtq01oddj6">
       <ColNames>username</ColNames>
       <ObjectId>24689</ObjectId>
       <StateNumber>808</StateNumber>
@@ -5167,19 +5286,19 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="310" parent="271" name="users_pkey">
+    <key id="327" parent="273" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24682</ObjectId>
       <Primary>1</Primary>
       <StateNumber>800</StateNumber>
       <UnderlyingIndexId>24681</UnderlyingIndexId>
     </key>
-    <key id="311" parent="271" name="uk_6dotkott2kjsp8vw4d0m25fb7">
+    <key id="328" parent="273" name="uk_6dotkott2kjsp8vw4d0m25fb7">
       <ObjectId>24688</ObjectId>
       <StateNumber>806</StateNumber>
       <UnderlyingIndexId>24687</UnderlyingIndexId>
     </key>
-    <key id="312" parent="271" name="uk_r43af9ap4edm43mmtq01oddj6">
+    <key id="329" parent="273" name="uk_r43af9ap4edm43mmtq01oddj6">
       <ObjectId>24690</ObjectId>
       <StateNumber>808</StateNumber>
       <UnderlyingIndexId>24689</UnderlyingIndexId>

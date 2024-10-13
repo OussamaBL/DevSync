@@ -42,4 +42,32 @@ public class UserService {
     public List<User> getUsersStatus(){
         return userRepository.getUsersStatus();
     }
+
+    public void updateUserTokens(Long userId, Integer dailyTokens, Integer monthlyTokens) {
+        User user = userRepository.getUserById(userId);
+        if (dailyTokens != null) {
+            user.setDailyToken(dailyTokens);
+        }
+        if (monthlyTokens != null) {
+            user.setMonthlyToken(monthlyTokens);
+        }
+        userRepository.updateUser(user);
+    }
+
+    public void updateDailyTokens(Long userId, Integer dailyTokens) {
+        User user = userRepository.getUserById(userId);
+        if (dailyTokens != null) {
+            user.setDailyToken(dailyTokens);
+            userRepository.updateUser(user);
+        }
+    }
+
+    // New method to update only monthly tokens
+    public void updateMonthlyTokens(Long userId, Integer monthlyTokens) {
+        User user = userRepository.getUserById(userId);
+        if (monthlyTokens != null) {
+            user.setMonthlyToken(monthlyTokens);
+            userRepository.updateUser(user);
+        }
+    }
 }

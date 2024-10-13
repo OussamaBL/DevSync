@@ -1,12 +1,13 @@
 package Repository.Interfaces;
 
 import Model.Task;
-import Model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskInterface {
-    Task getTaskById(Long id);
+    Optional<Task> getTaskById(int id);
+
     List<Task> getAllTasks();
     void addTask(Task task);
     void updateTask(Task task);

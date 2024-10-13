@@ -34,8 +34,11 @@ public class User {
     @Column(name = "role_user", nullable = false)
     private UserType role_user;
 
-    @Column(name = "tokens")
-    private int tokens;
+    @Column(name = "monthlyToken")
+    private int monthlyToken;
+
+    @Column(name = "dailyToken")
+    private int dailyToken;
 
     // Eager fetching for tasks created by the user
     @OneToMany(mappedBy = "user_create", fetch = FetchType.EAGER)
@@ -94,7 +97,7 @@ public class User {
         this.email = email;
     }
 
-    public User(Long id, String username, String password, String first_name, String last_name, String email,int tokens,UserType user_role) {
+    public User(Long id, String username, String password, String first_name, String last_name, String email,int monthlyToken,int dailyToken,UserType user_role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -102,7 +105,8 @@ public class User {
         this.last_name = last_name;
         this.email = email;
         this.role_user = user_role;
-        this.tokens = tokens;
+        this.monthlyToken = monthlyToken;
+        this.dailyToken = dailyToken;
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }
@@ -113,7 +117,8 @@ public class User {
         this.last_name = last_name;
         this.email = email;
         this.role_user = user_role;
-        this.tokens = 2;
+        this.monthlyToken = 1;
+        this.dailyToken = 2;
         createdTasks=new ArrayList<>();
         assignedTasks=new ArrayList<>();
     }
@@ -154,13 +159,20 @@ public class User {
         this.role_user = role_user;
     }
 
-    public int getTokens() {
-        return tokens;
+
+    public int getMonthlyToken() {
+        return monthlyToken;
     }
 
-    public void setTokens(int tokens) {
-        this.tokens = tokens;
+    public void setMonthlyToken(int monthlyToken) {
+        this.monthlyToken = monthlyToken;
     }
 
+    public int getDailyToken() {
+        return dailyToken;
+    }
 
+    public void setDailyToken(int dailyToken) {
+        this.dailyToken = dailyToken;
+    }
 }
