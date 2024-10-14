@@ -45,6 +45,9 @@ public class TaskRequestService {
     public List<TaskRequest> getAllRequests() {
         return taskRequestRepository.findAll();
     }
+    public List<TaskRequest> getRequestbyUser(Long id) {
+        return taskRequestRepository.getRequestbyUser(id);
+    }
 
 
     public void deleteRequest(int tagId) {

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setAttribute("user", user);
                 req.getSession().setAttribute("dailyTokens", user.getDailyToken());
                 req.getSession().setAttribute("monthlyTokens", user.getMonthlyToken());
-                resp.sendRedirect("tasks?action=list");
+                resp.sendRedirect("tasks?action=list&param="+ URLEncoder.encode("UTF-8"));
             } else {
                 req.setAttribute("error", "Invalid username or password");
                 RequestDispatcher dispatcher = req.getRequestDispatcher("Login.jsp");

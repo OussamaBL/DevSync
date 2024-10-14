@@ -18,11 +18,13 @@ import java.util.Optional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final UserService userService;
 
     public TaskService() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("devsync");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         this.taskRepository = new TaskRepository(entityManager);
+        this.userService = new UserService();
     }
     public void insertTask(Task task,User user_auth){
         if (task == null || task.equals(new Task())) {
@@ -76,14 +78,26 @@ public class TaskService {
         Optional<Task> task=this.getTaskById(id);
         if(task.isPresent()){
             Task t=task.get();
-            if(user_auth.getRole_user()== UserType.USER && user_auth.getId()!=t.getUser_create().getId() && user_auth.getMonthlyToken()<1){
-                throw new RuntimeException("the user don't have the jetons to delete the task");
-            }
-            else taskRepository.deleteTask(id);
+            taskRepository.deleteTask(id);
         }
         else throw new RuntimeException("Task not exists");
 
     }
+    public void deleteTaskToken(int id,User user_auth){
+        Optional<Task> task=this.getTaskById(id);
+        if(task.isPresent()){
+            Task t=task.get();
+            if(user_auth.getRole_user()== UserType.USER && user_auth.getId()!=t.getUser_create().getId() && user_auth.getMonthlyToken()<1){
+                throw new RuntimeException("the user don't have the jetons to delete the task");
+            }
+            else{
+                taskRepository.deleteTask(id);
+                userService.updateMonthlyTokens(user_auth.getId(),user_auth.getMonthlyToken()-1);
+            }
+        }
+        else throw new RuntimeException("Task not exists");
+    }
+
     public void updateTask(Task task){
          taskRepository.updateTask(task);
     }

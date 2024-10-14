@@ -1,6 +1,7 @@
 package Repository;
 
 import Model.Enums.StatusRequest;
+import Model.Task;
 import Model.TaskRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -48,7 +49,7 @@ public class TaskRequestRepository {
 
     public Optional<TaskRequest> findById(int id) {
         TaskRequest request = entityManager.find(TaskRequest.class, id);
-        return Optional.ofNullable(request);
+        return Optional.of(request);
     }
 
     public void delete(int id) {
@@ -72,6 +73,14 @@ public class TaskRequestRepository {
         TypedQuery<TaskRequest> query = entityManager.createQuery("SELECT t FROM TaskRequest t", TaskRequest.class);
         return query.getResultList();
     }
+    public List<TaskRequest> getRequestbyUser(Long id) {
+        TypedQuery<TaskRequest> query = entityManager.createQuery(
+                        "SELECT t FROM TaskRequest t WHERE t.user.id = :userId",
+                        TaskRequest.class)
+                .setParameter("userId", id);
+        return query.getResultList();
+    }
+
 
     public void updateRequestStatus(int taskrequestId, StatusRequest status) {
         entityManager.getTransaction().begin();

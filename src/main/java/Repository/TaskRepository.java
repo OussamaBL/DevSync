@@ -129,6 +129,8 @@ public class TaskRepository implements TaskInterface {
             Task task = entityManager.find(Task.class, id);
             if (task != null) {
                 entityManager.remove(task);
+                entityManager.refresh(task.getUser_create());
+                entityManager.refresh(task.getUser_assigne());
             }
             transaction.commit();
         } catch (Exception e) {

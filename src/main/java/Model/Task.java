@@ -58,7 +58,7 @@ public class Task {
     private List<Tag> listTags ;
 
     @Column(name = "isRefused")
-    private Boolean isRefused;
+    private Boolean isRefused=false;
 
     public Boolean getRefused() {
         return isRefused;

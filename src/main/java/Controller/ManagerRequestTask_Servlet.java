@@ -10,6 +10,7 @@ import Service.TaskService;
 import Service.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@WebServlet(name = "taskRequest_manager",urlPatterns = {"/taskRequest_manager"})
 public class ManagerRequestTask_Servlet extends HttpServlet {
     private TaskRequestService taskRequestService;
     private TaskService taskService;
@@ -38,13 +40,15 @@ public class ManagerRequestTask_Servlet extends HttpServlet {
 
         if (action != null && action.equals("ACCEPT")) {
             handleAcceptRedirect(request, response);
-        } else {
+        }
+        /*else {
             List<TaskRequest> requestList = taskRequestService.getAllRequests();
             request.setAttribute("requests", requestList);
             request.getRequestDispatcher("/views/dashboard/manager/requests/home.jsp").forward(request, response);
-        }
+        }*/
     }
 
+    //accept assignation
     private void handleAcceptRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestIdParam = request.getParameter("requestId");
 
@@ -75,18 +79,18 @@ public class ManagerRequestTask_Servlet extends HttpServlet {
             // Update the request status to approved
             taskRequestService.updateRequestStatus(requestId, StatusRequest.ACCEPTED); // Update the request status to APPROVED
 
-            request.setAttribute("taskTitle", task.getTitle());
+            request.setAttribute("taskTitle", req.getTask().getTitle());
             request.setAttribute("taskDescription", task.getDescription());
-            request.setAttribute("taskId", task.getId());
+            request.setAttribute("taskId", req.getTask().getId());
             request.setAttribute("requestUserId", req.getUser().getId());
             List<User> users = userService.findAllUsers();
             List<User> filteredUsers = users.stream()
-                    .filter(user -> user.getId() != userRequestId) // Use primitive comparison
+                    .filter(user -> user.getId() != userRequestId)
                     .collect(Collectors.toList());
 
             request.setAttribute("users", filteredUsers);
 
-            request.getRequestDispatcher("/views/dashboard/manager/requests/reassignTask.jsp").forward(request, response);
+            request.getRequestDispatcher("taskAssigne.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Request not found.");
         }
@@ -130,19 +134,20 @@ public class ManagerRequestTask_Servlet extends HttpServlet {
                 Long assignedUserId = Long.parseLong(request.getParameter("newAssignedUser")); // Ensure this matches your form input name
                 processAcceptRequest(taskId, assignedUserId);
                 break;
+
+                //refuse request of user
             case "DELETE":
                 processDeclineRequest(requestToProcess);
                 break;
             case "REJECT":
-                // Handle reject action (implementation can be added later)
-                break;
+                 break;
             default:
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
                 return;
         }
 
         // Redirect back to the request list
-        response.sendRedirect("request");
+        response.sendRedirect("requestTask?action=list");
     }
 
     private void processDeclineRequest(Optional<TaskRequest> request) {

@@ -72,23 +72,22 @@
                 <%= task.getStatus().name() %>
             </td>
             <td>
-                <a href="tasks?action=edit&id=<%= task.getId() %>" class="btn btn-warning btn-sm">Edit</a>
                 <% User us=(User) request.getSession().getAttribute("user");
                     if (us.getId()== task.getUser_create().getId()){ %>
-                    <form action="tasks" method="post" style="display:inline;">
+                    <form action="tasks" method="post" style="display:block;">
                         <input type="hidden" name="id" value="<%= task.getId() %>"/>
                         <input type="hidden" name="_method" value="deleteTask"/>
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
-                <% } else {%>
-                <form action="requestTask" method="post" style="display:inline;">
+                <% } if(us.getRole_user()==UserType.USER && us.getMonthlyToken()>0) { %>
+                <form action="tasks" method="post" style="display:block;">
                     <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
-                    <input type="hidden" name="user_id" value="<%= us.getId() %>"/>
-                    <input type="hidden" name="requestType" value="DELETE"/>
+                  <%--  <input type="hidden" name="user_id" value="<%= us.getId() %>"/>--%>
+                    <input type="hidden" name="_method" value="delete_token"/>
                     <button type="submit" class="btn btn-danger btn-sm">Delete with jeton</button>
                 </form>
-
-                <form action="requestTask" method="post" style="display:inline;">
+                <% } if(us.getRole_user()==UserType.USER && !task.getRefused()){ %>
+                <form action="requestTask" method="post" style="display:block;">
                     <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
                     <input type="hidden" name="user_id" value="<%= us.getId() %>"/>
                     <input type="hidden" name="requestType" value="REJECTED"/>
@@ -96,7 +95,7 @@
                 </form>
 
                 <% } %>
-                <form action="tasks" method="post" style="display: inline" id="formChangeStatus<%=task.getId()%>">
+                <form action="tasks" method="post" style="display: block" id="formChangeStatus<%=task.getId()%>">
                     <input type="hidden" name="id_task" value="<%= task.getId()%>">
                     <input type="hidden" name="date_fin" value="<%= task.getDate_fin()%>">
                     <input type="hidden" name="_method" value="changeStatus"/>

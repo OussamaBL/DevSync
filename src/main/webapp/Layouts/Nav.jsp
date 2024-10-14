@@ -15,6 +15,9 @@
                 </li>
             <% } %>
             <li class="nav-item">
+                <a class="nav-link" href="requestTask?action=list">Requests </a>
+            </li>
+            <li class="nav-item">
                 <form action="login" method="post" style="display:inline;">
                     <input type="hidden" name="_method" value="DESTROY">
                     <input type="submit" class="btn btn-primary" value="Log out">
@@ -22,11 +25,11 @@
 
             </li>
 
-            <li style="margin-left: 20px"><%= us.getFirst_name()+" "+us.getLast_name()+" : "+us.getRole_user().name() %></li>
+          <%--  <li style="margin-left: 20px"><%= us.getFirst_name()+" "+us.getLast_name()+" : "+us.getRole_user().name() %></li>
             <%if (us.getRole_user()== UserType.USER){ %>
             <li style="margin-left: 20px">Daily Tokens : <%= us.getDailyToken() %></li>
             <li style="margin-left: 20px">Montly Tokens : <%= us.getMonthlyToken() %></li>
-            <% } %>
+            <% } %>--%>
         </ul>
     </div>
 </nav>

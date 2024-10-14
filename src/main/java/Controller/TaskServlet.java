@@ -110,16 +110,24 @@ public class TaskServlet extends HttpServlet {
                 Task task = new Task(title, description, date_start, date_fin, new User(user_auth.getId()), new User(user_assigne_id), TaskStatus.NOT_STARTED);
                 task.setListTags(tags);
                 taskService.insertTask(task,user_auth);
+                //change status task
             } else if ("changeStatus".equalsIgnoreCase(method)) {
                 int id = Integer.parseInt(request.getParameter("id_task"));
                 LocalDate date_fin = LocalDate.parse(request.getParameter("date_fin"));
                 TaskStatus status = TaskStatus.valueOf(request.getParameter("status"));
                 taskService.changeStatusTask(new Task(id,date_fin,status));
-
+                //delete task (without jeton)
             } else if ("deleteTask".equalsIgnoreCase(method)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 User user_auth = (User) request.getSession().getAttribute("user");
                 taskService.deleteTask(id,user_auth);
+            }
+            //delete with jeton
+            else if ("delete_token".equalsIgnoreCase(method)) {
+                int taskId = Integer.parseInt(request.getParameter("taskId"));
+                User user_auth = (User) request.getSession().getAttribute("user");
+                taskService.deleteTaskToken(taskId,user_auth);
+
             }
 
             response.sendRedirect("tasks?action=list&status=success");

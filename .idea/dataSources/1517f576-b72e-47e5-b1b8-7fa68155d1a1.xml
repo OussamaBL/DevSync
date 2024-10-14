@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.48">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1056</IntrospectionStateNumber>
       <ServerVersion>16.1</ServerVersion>
       <StartupTime>1728497591</StartupTime>
       <TimeZones>true ACDT
@@ -1399,7 +1399,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1056</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>Devsync</OwnerName>
     </database>
@@ -4823,7 +4823,7 @@ true posixrules
     <schema id="264" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1044</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1056</IntrospectionStateNumber>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4839,7 +4839,7 @@ true posixrules
     <sequence id="266" parent="264" name="taskrequest_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>32864</ObjectId>
-      <SequenceIdentity>1(1)</SequenceIdentity>
+      <SequenceIdentity>1(3)</SequenceIdentity>
       <StartValue>1</StartValue>
       <StateNumber>1041</StateNumber>
       <OwnerName>Devsync</OwnerName>
