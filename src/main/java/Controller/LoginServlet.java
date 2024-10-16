@@ -4,6 +4,9 @@ import Model.Enums.TaskStatus;
 import Model.Tag;
 import Model.Task;
 import Model.User;
+import Scheduler.RequestScheduler;
+import Scheduler.TaskScheduler;
+import Scheduler.UserScheduler;
 import Service.TaskService;
 import Service.UserService;
 import Utils.SessionUtil;
@@ -34,6 +37,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserScheduler userScheduler=new UserScheduler();
+        userScheduler.startScheduler();
+        TaskScheduler taskScheduler=new TaskScheduler();
+        taskScheduler.startScheduler();
+        RequestScheduler requestScheduler=new RequestScheduler();
+        requestScheduler.startScheduler();
+
         if (SessionUtil.isUserLoggedIn(req, resp)) {
             resp.sendRedirect(req.getContextPath() + "/tasks");
             return;
