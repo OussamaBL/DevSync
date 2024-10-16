@@ -5,7 +5,6 @@
 <%@ page import="Model.TaskRequest" %>
 <%@ page import="Model.Enums.TaskStatus" %>
 <%@ page import="Model.Enums.UserType" %>
-<%@ page import="Model.Enums.TypeRequest" %>
 <%@ page import="Model.Enums.StatusRequest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -45,7 +44,6 @@
             <th>Status task</th>
             <th>User Assigned</th>
             <th>Status Request</th>
-            <th>Type Request</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -62,24 +60,21 @@
             <td><%= taskRequest.getTask().getStatus().name() %></td>
             <td><%= taskRequest.getUser().getFirst_name()+" "+taskRequest.getUser().getLast_name() %></td>
             <td><%= taskRequest.getStatus().name() %></td>
-            <td><%= taskRequest.getType().name() %></td>
             <td>
 
                 <% User us=(User) request.getSession().getAttribute("user");
                     if (us.getRole_user()== UserType.MANAGER){
-                        if(taskRequest.getType()== TypeRequest.REJECT && taskRequest.getStatus()== StatusRequest.PENDING){ %>
+                        if(taskRequest.getStatus()== StatusRequest.PENDING){ %>
                             <form action="taskRequest_manager" method="get" style="display:inline;">
                                 <input type="hidden" name="action" value="ACCEPT"/>
                                 <input type="hidden" name="requestId" value="<%=taskRequest.getId()%>"/>
                                 <button type="submit" class="btn btn-danger btn-sm">Change the user</button>
                             </form>
-                         <% }
-                        if(taskRequest.getType()== TypeRequest.DELETE && taskRequest.getStatus()== StatusRequest.PENDING) { %>
-                        <form action="taskRequest_manager" method="get" style="display:inline;">
-                            <input type="hidden" name="action" value="DELETE"/>
-                            <input type="hidden" name="requestId" value="<%=taskRequest.getId()%>"/>
-                            <button type="submit" class="btn btn-danger btn-sm">Accepte the delete of task</button>
-                        </form>
+                            <form action="taskRequest_manager" method="post" style="display:inline;">
+                                <input type="hidden" name="action" value="DELETE"/>
+                                <input type="hidden" name="requestId" value="<%=taskRequest.getId()%>"/>
+                                <button type="submit" class="btn btn-danger btn-sm">Refuse the request</button>
+                            </form>
                     <% } } %>
 
             </td>

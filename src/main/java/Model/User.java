@@ -2,11 +2,15 @@ package Model;
 
 import Model.Enums.UserType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.XSlf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -48,55 +52,6 @@ public class User {
     @OneToMany(mappedBy = "user_assigne", fetch = FetchType.EAGER)
     private List<Task> assignedTasks;
 
-    public List<Task> getCreatedTasks() {
-        return createdTasks;
-    }
-
-    public void setCreatedTasks(List<Task> createdTasks) {
-        this.createdTasks = createdTasks;
-    }
-
-    public List<Task> getAssignedTasks() {
-        return assignedTasks;
-    }
-
-    public void setAssignedTasks(List<Task> assignedTasks) {
-        this.assignedTasks = assignedTasks;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public User(Long id, String username, String password, String first_name, String last_name, String email,int monthlyToken,int dailyToken,UserType user_role) {
         this.id = id;
         this.username = username;
@@ -133,46 +88,4 @@ public class User {
         assignedTasks=new ArrayList<>();
     }
 
-
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public UserType getRole_user() {
-        return role_user;
-    }
-
-    public void setRole_user(UserType role_user) {
-        this.role_user = role_user;
-    }
-
-
-    public int getMonthlyToken() {
-        return monthlyToken;
-    }
-
-    public void setMonthlyToken(int monthlyToken) {
-        this.monthlyToken = monthlyToken;
-    }
-
-    public int getDailyToken() {
-        return dailyToken;
-    }
-
-    public void setDailyToken(int dailyToken) {
-        this.dailyToken = dailyToken;
-    }
 }

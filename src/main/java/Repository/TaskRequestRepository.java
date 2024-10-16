@@ -5,6 +5,7 @@ import Model.Task;
 import Model.TaskRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -48,8 +49,13 @@ public class TaskRequestRepository {
 
 
     public Optional<TaskRequest> findById(int id) {
-        TaskRequest request = entityManager.find(TaskRequest.class, id);
-        return Optional.of(request);
+
+        TypedQuery<TaskRequest> query = entityManager.createQuery(
+                        "SELECT t FROM TaskRequest t join fetch t.task join fetch t.user WHERE t.id = :id",
+                        TaskRequest.class)
+                .setParameter("id", id);
+
+        return Optional.of(query.getSingleResult());
     }
 
     public void delete(int id) {
@@ -70,15 +76,33 @@ public class TaskRequestRepository {
     }
 
     public List<TaskRequest> findAll() {
-        TypedQuery<TaskRequest> query = entityManager.createQuery("SELECT t FROM TaskRequest t", TaskRequest.class);
-        return query.getResultList();
+        TypedQuery<TaskRequest> query = entityManager.createQuery("SELECT t FROM TaskRequest t join fetch t.user join fetch t.task", TaskRequest.class);
+        List<TaskRequest> taskRequests=query.getResultList();
+        taskRequests.forEach(taskRequest -> entityManager.refresh(taskRequest));
+        return taskRequests;
     }
     public List<TaskRequest> getRequestbyUser(Long id) {
         TypedQuery<TaskRequest> query = entityManager.createQuery(
-                        "SELECT t FROM TaskRequest t WHERE t.user.id = :userId",
+                        "SELECT t FROM TaskRequest t join fetch t.user join fetch t.task WHERE t.user.id = :userId",
                         TaskRequest.class)
                 .setParameter("userId", id);
-        return query.getResultList();
+        List<TaskRequest> taskRequests=query.getResultList();
+        taskRequests.forEach(taskRequest -> entityManager.refresh(taskRequest));
+        return taskRequests;
+    }
+    public TaskRequest findRequestTask(TaskRequest taskRequest){
+        try{
+            TypedQuery<TaskRequest> query = entityManager.createQuery(
+                            "SELECT t FROM TaskRequest t join fetch t.user join fetch t.task WHERE t.task.id = :taskId",
+                            TaskRequest.class)
+                    .setParameter("taskId", taskRequest.getTask().getId());
+            TaskRequest req=query.getSingleResult();
+            return req;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+
     }
 
 

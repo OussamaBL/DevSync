@@ -63,14 +63,11 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(User user) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            User user = entityManager.find(User.class, id);
-            if (user != null) {
-                entityManager.remove(user);
-            }
+            entityManager.remove(user);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -88,5 +85,15 @@ public class UserRepository implements UserInterface {
             return null;
         }
     }
+    public User findByUserName(String username) {
+        try {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 
 }

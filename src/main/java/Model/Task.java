@@ -2,11 +2,15 @@ package Model;
 
 import Model.Enums.TaskStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -38,9 +42,11 @@ public class Task {
 
     @Column(name = "date_fin",nullable = true)
     private LocalDate date_fin;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status",nullable = false)
     private TaskStatus status;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_create_id", nullable = false)
     private User user_create;
@@ -59,89 +65,6 @@ public class Task {
 
     @Column(name = "isRefused")
     private Boolean isRefused=false;
-
-    public Boolean getRefused() {
-        return isRefused;
-    }
-
-    public void setRefused(Boolean refused) {
-        isRefused = refused;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public User getUser_create() {
-        return user_create;
-    }
-
-    public void setUser_create(User user_create) {
-        this.user_create = user_create;
-    }
-
-    public User getUser_assigne() {
-        return user_assigne;
-    }
-
-    public void setUser_assigne(User user_assigne) {
-        this.user_assigne = user_assigne;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getDate_create() {
-        return date_create;
-    }
-
-    public void setDate_create(LocalDate date_create) {
-        this.date_create = date_create;
-    }
-
-
-    public LocalDate getDate_fin() {
-        return date_fin;
-    }
-
-    public void setDate_fin(LocalDate date_fin) {
-        this.date_fin = date_fin;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
-
-
-
-    public List<Tag> getListTags() {
-        return listTags;
-    }
-
-    public void setListTags(List<Tag> listTags) {
-        this.listTags = listTags;
-    }
 
     public Task(int id, String title, String description,LocalDate date_start, LocalDate date_fin, TaskStatus status, User user_create,User user_assigne) {
         this.id = id;
@@ -195,13 +118,5 @@ public class Task {
                // ", listTags=" + listTags +
                 '}';
     }
-
-    /*@PrePersist
-    @PreUpdate
-    public void validateDates() {
-        if (this.date_create.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("Task creation date cannot be in the past.");
-        }
-    }*/
 
 }

@@ -1,7 +1,6 @@
 package Model;
 
 import Model.Enums.StatusRequest;
-import Model.Enums.TypeRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +15,11 @@ public class TaskRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -30,11 +29,6 @@ public class TaskRequest {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusRequest status;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private TypeRequest type;
-
 
     public TaskRequest(User user,Task task,LocalDate date_request,StatusRequest status){
         this.user=user;

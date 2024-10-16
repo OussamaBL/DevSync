@@ -1,5 +1,6 @@
 package Service;
 
+import Exceptions.FormatIncorrectException;
 import Model.Tag;
 import Model.Task;
 import Model.User;
@@ -21,6 +22,10 @@ public class TagService {
         this.tagRepository = new TagRepository(entityManager);
     }
     public Tag insertTag(Tag tag){
+        if(tag==null && tag.equals(new Tag()))
+            throw new RuntimeException("tag empty");
+        if(findByName(tag.getName())!=null)
+            throw new RuntimeException("tag already exist");
         return tagRepository.addTag(tag);
     }
     public List<Tag> getAllTags(){
@@ -28,6 +33,8 @@ public class TagService {
     }
 
     public Optional<Tag> findByName(String name){
+        if(name==null && name.isEmpty())
+            throw new FormatIncorrectException("format de valeur est incorrect");
         return tagRepository.findByName(name);
     }
 

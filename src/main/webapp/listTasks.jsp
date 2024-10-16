@@ -73,20 +73,19 @@
             </td>
             <td>
                 <% User us=(User) request.getSession().getAttribute("user");
-                    if (us.getId()== task.getUser_create().getId()){ %>
+                    if (us.getRole_user()==UserType.MANAGER || (us.getRole_user()==UserType.USER && us.getId()== task.getUser_create().getId())){ %>
                     <form action="tasks" method="post" style="display:block;">
                         <input type="hidden" name="id" value="<%= task.getId() %>"/>
                         <input type="hidden" name="_method" value="deleteTask"/>
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
-                <% } if(us.getRole_user()==UserType.USER && us.getMonthlyToken()>0) { %>
+                <% } if(us.getId()!= task.getUser_create().getId() && us.getRole_user()==UserType.USER && us.getMonthlyToken()>0 && !task.getIsRefused()) { %>
                 <form action="tasks" method="post" style="display:block;">
                     <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
-                  <%--  <input type="hidden" name="user_id" value="<%= us.getId() %>"/>--%>
                     <input type="hidden" name="_method" value="delete_token"/>
-                    <button type="submit" class="btn btn-danger btn-sm">Delete with jeton</button>
+                    <button type="submit" class="btn btn-  btn-sm">Delete with jeton</button>
                 </form>
-                <% } if(us.getRole_user()==UserType.USER && !task.getRefused()){ %>
+                <% } if(us.getId()!= task.getUser_create().getId() && us.getRole_user()==UserType.USER && !task.getIsRefused()){ %>
                 <form action="requestTask" method="post" style="display:block;">
                     <input type="hidden" name="taskId" value="<%= task.getId() %>"/>
                     <input type="hidden" name="user_id" value="<%= us.getId() %>"/>

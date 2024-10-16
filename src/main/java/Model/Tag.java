@@ -1,10 +1,14 @@
 package Model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tags")
 public class Tag {
@@ -19,29 +23,6 @@ public class Tag {
 
     public Tag() {
         this.listTasks = new ArrayList<>();
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Task> getListTasks() {
-        return listTasks;
-    }
-
-    public void setListTasks(List<Task> listTasks) {
-        this.listTasks = listTasks;
     }
 
     public Tag(int id, String name) {

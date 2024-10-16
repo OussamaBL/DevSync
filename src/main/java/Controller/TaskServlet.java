@@ -56,12 +56,7 @@ public class TaskServlet extends HttpServlet {
                RequestDispatcher requestDispatcher = request.getRequestDispatcher("listTasks.jsp");
                requestDispatcher.forward(request, response);
 
-           } else if (action.equals("edit")) {
-            /*Long id = Long.parseLong(request.getParameter("id"));
-            User user = userService.findUserById(id);
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("FormUser.jsp").forward(request, response);*/
-           } else if (action.equals("newTask")) {
+           }  else if (action.equals("newTask")) {
                List<User> userList = userService.findAllUsers();
                request.setAttribute("userList", userList);
                RequestDispatcher requestDispatcher = request.getRequestDispatcher("newTask.jsp");
@@ -110,6 +105,7 @@ public class TaskServlet extends HttpServlet {
                 Task task = new Task(title, description, date_start, date_fin, new User(user_auth.getId()), new User(user_assigne_id), TaskStatus.NOT_STARTED);
                 task.setListTags(tags);
                 taskService.insertTask(task,user_auth);
+
                 //change status task
             } else if ("changeStatus".equalsIgnoreCase(method)) {
                 int id = Integer.parseInt(request.getParameter("id_task"));
@@ -129,7 +125,6 @@ public class TaskServlet extends HttpServlet {
                 taskService.deleteTaskToken(taskId,user_auth);
 
             }
-
             response.sendRedirect("tasks?action=list&status=success");
         }
         catch (Exception e) {

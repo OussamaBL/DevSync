@@ -17,15 +17,15 @@
     <br>
     <br>
     <div>
-        <p>Task title : <strong><%= request.getParameter("taskTitle")%></strong></p>
-        <p>Task description : <strong><%= request.getParameter("taskDescription")%></strong></p>
-        <p>Task id : <strong><%= request.getParameter("taskId")%></strong></p>
-        <p>Task request user id : <strong><%= request.getParameter("requestUserId")%></strong></p>
+        <p>Task title : <strong><%= request.getAttribute("taskTitle")%></strong></p>
+        <p>Task description : <strong><%= request.getAttribute("taskDescription")%></strong></p>
+        <p>Task id : <strong><%= request.getAttribute("taskId")%></strong></p>
+        <p>Task request user id : <strong><%= request.getAttribute("requestUserId")%></strong></p>
     </div>
     <form action="taskRequest_manager" method="post">
-        <input type="hidden" name="requestId" value="<%= request.getParameter("requestId")  %>"/>
+        <input type="hidden" name="requestId" value="<%= request.getAttribute("requestId")  %>"/>
         <input type="hidden" name="action" value="ACCEPT" />
-        <input type="hidden" name="taskId" value="<%=  request.getParameter("taskId") %>" />
+        <input type="hidden" name="taskId" value="<%=  request.getAttribute("taskId") %>" />
 
 
 
