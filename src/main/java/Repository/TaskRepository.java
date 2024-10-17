@@ -5,6 +5,8 @@ import Model.User;
 import Repository.Interfaces.TaskInterface;
 import jakarta.persistence.*;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -139,6 +141,52 @@ public class TaskRepository implements TaskInterface {
             }
             e.printStackTrace();
         }
+    }
+
+    public List<Task> getTasksByPeriod(Long idUser, String period, String tagFilter) {
+        try{
+            StringBuilder queryStr = new StringBuilder("SELECT t FROM Task t JOIN t.user_create ua JOIN t.listTags tag WHERE ua.id = :idUser");
+
+            if (tagFilter != null && !tagFilter.isEmpty()) {
+                queryStr.append(" AND tag.name = :tagFilter");
+            }
+
+            switch (period.toLowerCase()) {
+                case "week":
+                    queryStr.append(" AND t.date_create BETWEEN :startWeek AND :endWeek");
+                    break;
+                case "month":
+                    queryStr.append(" AND t.date_create BETWEEN :startMonth AND :endMonth");
+                    break;
+                case "year":
+                    queryStr.append(" AND t.date_create BETWEEN :startYear AND :endYear");
+                    break;
+            }
+
+            TypedQuery<Task> query = entityManager.createQuery(queryStr.toString(), Task.class);
+            query.setParameter("idUser", idUser);
+
+            if (tagFilter != null && !tagFilter.isEmpty()) {
+                query.setParameter("tagFilter", tagFilter);
+            }
+
+            if ("week".equalsIgnoreCase(period)) {
+                query.setParameter("startWeek", LocalDate.now().with(DayOfWeek.MONDAY));
+                query.setParameter("endWeek", LocalDate.now().with(DayOfWeek.SUNDAY));
+            } else if ("month".equalsIgnoreCase(period)) {
+                query.setParameter("startMonth", LocalDate.now().withDayOfMonth(1));
+                query.setParameter("endMonth", LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()));
+            } else if ("year".equalsIgnoreCase(period)) {
+                query.setParameter("startYear", LocalDate.now().withDayOfYear(1));
+                query.setParameter("endYear", LocalDate.now().withDayOfYear(LocalDate.now().lengthOfYear()));
+            }
+
+            return query.getResultList();
+        }
+        catch (Exception e) {
+            return null;
+        }
+
     }
 
 }

@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="users">Users </a>
                 </li>
+            <li class="nav-item">
+                <a class="nav-link" href="stats">Statistique </a>
+            </li>
             <% } %>
             <li class="nav-item">
                 <a class="nav-link" href="requestTask?action=list">Requests </a>

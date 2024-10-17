@@ -14,7 +14,9 @@ import Repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -135,4 +137,26 @@ public class TaskService {
         }
          taskRepository.updateTask(task);
     }
+
+
+    public List<Task> getTasksByPeriod(Long idUser, String period, String tagFilter) {
+        if (userService.findUserById(idUser)==null)
+            throw new UserNotExistException("user not exists");
+        if (period.equals("week") || period.equals("month") || period.equals("year")){
+            return taskRepository.getTasksByPeriod(idUser,period,tagFilter);
+        }
+        else
+            throw new FormatIncorrectException("Format of perdiod incorrect");
+
+
+    }
+
+    public double calculateCompletionPercentage(List<Task> tasks) {
+        long completedTasks = tasks.stream()
+                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
+                .count();
+        return (double) completedTasks / tasks.size() * 100;
+    }
+
+
 }
