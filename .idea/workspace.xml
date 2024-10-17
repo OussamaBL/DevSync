@@ -9,14 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cc29f3e-0a99-4def-84d0-4ed8717f03dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/StatServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/Stat.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/TaskRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Layouts/Nav.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Layouts/Nav.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="7cc29f3e-0a99-4def-84d0-4ed8717f03dc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,7 +129,7 @@
       <workItem from="1727944670673" duration="123559000" />
       <workItem from="1728497570389" duration="120170000" />
       <workItem from="1728982487072" duration="40489000" />
-      <workItem from="1729152933699" duration="15224000" />
+      <workItem from="1729152933699" duration="15415000" />
     </task>
     <servers />
   </component>
