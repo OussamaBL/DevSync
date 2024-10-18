@@ -5,8 +5,10 @@
  */
 package Controller;
 
+import Model.Enums.UserType;
 import Model.User;
 import Service.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,15 +34,16 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        User us = (User) request.getSession().getAttribute("user");
         if (action == null) {
             List<User> userList = userService.findAllUsers();
-            System.out.println(userList);
             request.setAttribute("userList", userList);
-            request.getRequestDispatcher("ListUser.jsp").forward(request, response);
+            RequestDispatcher requestDispatcher=request.getRequestDispatcher("ListUser.jsp");
+            requestDispatcher.forward(request,response);
         } else if (action.equals("edit")) {
             Long id = Long.parseLong(request.getParameter("id"));
             User user = userService.findUserById(id);
@@ -59,24 +62,23 @@ public class UserServlet extends HttpServlet {
                 userService.deleteUser(Long.parseLong(id));
             }
         } else {
-            String userName = request.getParameter("userName");
-            String name = request.getParameter("name");
-            String lastName = request.getParameter("lastName");
+            String username = request.getParameter("userName");
+            String first_name = request.getParameter("first_name");
+            String last_name = request.getParameter("last_name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-            User user = new User(userName,password,name,lastName, email,true);
+            User user = new User(username,hashedPassword,first_name,last_name, email, UserType.USER);
             if (id != null && !id.isEmpty()) {
                 user.setId(Long.parseLong(id));
                 userService.updateUser(user);
             } else {
-                System.out.println(user);
                 userService.insertUser(user);
             }
         }
         response.sendRedirect("users?status=success");
     }
-
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

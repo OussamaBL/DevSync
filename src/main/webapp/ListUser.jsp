@@ -1,12 +1,18 @@
 <%@ page import="Model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <title>User List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
+
+<jsp:include page="Layouts/Nav.jsp" />
 <div class="container">
     <h2>User List</h2>
 
@@ -27,8 +33,8 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>LastName</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>UserName</th>
             <th>Email</th>
             <th>Password</th>
@@ -44,12 +50,12 @@
         %>
         <tr>
             <td><%= user.getId() %></td>
-            <td><%= user.getName() %></td>
-            <td><%= user.getLastname() %></td>
+            <td><%= user.getFirst_name() %></td>
+            <td><%= user.getLast_name() %></td>
             <td><%= user.getUsername() %></td>
             <td><%= user.getEmail() %></td>
             <td><%= user.getPassword() %></td>
-            <td><%= user.getManager() %></td>
+            <td><%= user.getRole_user() %></td>
             <td>
                 <a href="users?action=edit&id=<%= user.getId() %>" class="btn btn-warning btn-sm">Edit</a>
                 <form action="users" method="post" style="display:inline;">
@@ -70,4 +76,5 @@
     <a href="home" class="btn btn-info">Back to Home</a>
 </div>
 </body>
+
 </html>
